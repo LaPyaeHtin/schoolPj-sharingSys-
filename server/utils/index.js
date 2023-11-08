@@ -31,7 +31,7 @@ exports.saveToken = async (user_id, token, expires) => {
   }
 };
 
-exports.emailTemplate = (token, username) => {
+exports.forgotPasswordEmailTemplate = (token, username) => {
   return `
   <!DOCTYPE html>
   <html>
@@ -114,4 +114,28 @@ exports.sendEmail = async (option) => {
     html: option.message,
   };
   await transporter.sendMail(mailOptions);
+};
+
+exports.verifyEmailTemplate = (link) => {
+  return `
+    <html>
+      <head>
+      </head>
+      <body style="font-family: Arial, sans-serif; background-color: #f0f0f0;">
+        <div style="max-width: 600px; margin: 0 auto; background-color: #ffffff; border: 1px solid #cccccc; padding: 20px;">
+          <div style="text-align: center;">
+            <img src="^1^" alt="Logo" width="200" height="100">
+          </div>
+          <div style="font-size: 16px; line-height: 1.5; color: #333333;">
+            <h1>Welcome to our website!</h1>
+            <p>Thank you for signing up. To complete your registration, please verify your email address by clicking the button below.</p>
+            <p><a href="${link}" style="display: inline-block; background-color: #0099ff; color: #ffffff; padding: 10px 20px; text-decoration: none;">Verify Email</a></p>
+            <p>If you have any questions or need any help, please contact us at support@website.com.</p>
+            <p>Thank you for choosing us!</p>
+            <p>The Website Team</p>
+          </div>
+        </div>
+      </body>
+    </html>
+  `;
 };

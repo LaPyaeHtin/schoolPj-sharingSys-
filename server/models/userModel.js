@@ -35,6 +35,10 @@ const userSchema = new mongoose.Schema(
       minlength: 8,
       select: false,
     },
+    verify: {
+      type: Boolean,
+      default: false,
+    },
     byteCoin: {
       type: String,
       default: 0,

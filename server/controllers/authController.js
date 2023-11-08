@@ -9,8 +9,9 @@ const Verification = require('../models/verificationModel');
 const {
   signToken,
   saveToken,
-  emailTemplate,
+  forgotPasswordEmailTemplate,
   sendEmail,
+  verifyEmailTemplate,
 } = require('../utils/index');
 
 exports.register = asyncErrorHandler(async (req, res, next) => {
@@ -19,26 +20,125 @@ exports.register = asyncErrorHandler(async (req, res, next) => {
     const err = new CustomError('Password does not match', 400);
     return next(err);
   }
-  const isExisting = await User.findOne({ email });
-  if (isExisting) {
+  // const isExisting = await User.findOne({ email });
+  // if (isExisting) {
+  //   const err = new CustomError('Email already exists', 400);
+  //   return next(err);
+  // }
+  // const user = await User.create({ username, email, password });
+  // const accessToken = signToken(user.id);
+  // res.cookie('jwt', accessToken, {
+  //   httpOnly: true,
+  //   maxAge: 1000 * 60 * 60 * 24 * parseInt(process.env.EXPIRES_IN || 7),
+  // });
+  // saveToken(user._id, accessToken);
+  // res.status(201).json({
+  //   status: 'success',
+  //   user,
+  //   message: 'User created successfully',
+  //   accessToken,
+  // });
+
+  let user = await User.findOne({ email });
+  const isPendingToVerify = await Verification.find({ email }); //many
+  if (user?.verify) {
     const err = new CustomError('Email already exists', 400);
     return next(err);
   }
-  const user = await User.create({ username, email, password });
-  const accessToken = signToken(user.id);
+  // ma phit pal register loke yin user lo update lote mal and delete all token and resend token.
+
+  if (user) {
+    if (isPendingToVerify.length > 0) {
+      await Verification.deleteMany({ email });
+    }
+    //update password
+    user.password = password;
+    await user.save();
+  } else {
+    user = await User.create({ username, email, password });
+  }
+
+  //sent verification message here.
+  const token = uuidv4();
+  const link = `${req.protocol}://${req.get('host')}/auth/verifyemail/${token}`; //i will change frontend url later
+  const message = verifyEmailTemplate(link);
+  const hashToken = crypto.createHash('sha256').update(token).digest('hex');
+  const verification = await Verification.create({
+    email,
+    token: hashToken,
+    createdAt: Date.now(),
+    expiresAt: Date.now() + 1000 * 60 * 10, // 10 minutes
+  });
+  if (!verification) {
+    const err = new CustomError('Something went wrong', 500);
+    return next(err);
+  }
+  try {
+    sendEmail({
+      email: user.email,
+      subject: 'Verify Your Email',
+      message,
+    });
+  } catch (error) {
+    console.log(error);
+    //must clear verification token
+    await user.deleteOne();
+    await verification.deleteOne();
+    const err = new CustomError('Email could not be sent', 500);
+    return next(err);
+  }
+  res.status(201).send({
+    success: 'PENDING',
+    link,
+    message:
+      'Verification email has been sent to your account. Check your email for further instructions.',
+  });
+});
+
+exports.verifyEmail = asyncErrorHandler(async (req, res, next) => {
+  const { token } = req.params;
+  //decrypt token and search from database
+  const hashedToken = crypto.createHash('sha256').update(token).digest('hex');
+  const verification = await Verification.findOne({ token: hashedToken });
+
+  if (!verification) {
+    const err = new CustomError('Token is invalid or has expired', 400);
+    return next(err);
+  }
+  const account = await User.findOne({ email: verification.email });
+  console.log(account);
+  if (!account) {
+    const err = new CustomError('Account is not found', 400);
+    return next(err);
+  }
+  if (account?.verify) {
+    const err = new CustomError('Email already verified', 400);
+    return next(err);
+  }
+  if (verification.expiresAt < Date.now()) {
+    console.log('here');
+    await verification.deleteOne();
+    await account.deleteOne();
+    const err = new CustomError('Token is invalid or has expired', 400);
+    return next(err);
+  }
+  account.verify = true;
+  await account.save();
+  await verification.deleteOne();
+
+  const accessToken = signToken(account.id);
   res.cookie('jwt', accessToken, {
     httpOnly: true,
     maxAge: 1000 * 60 * 60 * 24 * parseInt(process.env.EXPIRES_IN || 7),
   });
-  saveToken(user._id, accessToken);
+  saveToken(account._id, accessToken);
   res.status(201).json({
     status: 'success',
-    user,
+    user: account,
     message: 'User created successfully',
     accessToken,
+    redirect: '/', //something
   });
-
-
 });
 
 exports.login = asyncErrorHandler(async (req, res, next) => {
@@ -58,15 +158,16 @@ exports.login = asyncErrorHandler(async (req, res, next) => {
     return next(err);
   }
   const user = await User.findOne({ email }).select('+password');
-  if (!user) {
-    //custom error handler
-    const err = new CustomError('This email is not registered', 404);
-    return next(err);
+  if (!(user && user?.verify)) {
+    //custom error handler later
+    return res.status(404).json({
+      status: 'fail',
+      message: 'This email is not registered! Please sigup',
+    });
   }
 
   if (!(await user.comparePassword(password, user.password))) {
-    //custom error handler later
-    const err = new CustomError('Incorrect password', 401);
+    const err = new CustomError('Incorrect Email or Password ', 401);
     return next(err);
   }
 
@@ -117,7 +218,7 @@ exports.forgotPassword = asyncErrorHandler(async (req, res, next) => {
   const resetURL = `${req.protocol}://${req.get(
     'host'
   )}/auth/resetpassword/${resetToken}`;
-  const message = emailTemplate(resetURL, user?.username);
+  const message = forgotPasswordEmailTemplate(resetURL, user?.username);
 
   try {
     sendEmail({
