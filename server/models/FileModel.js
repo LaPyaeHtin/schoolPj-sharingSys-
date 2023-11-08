@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const FileSchema = new mongoose.Schema({
-  shortId: {
+  shortId: { //localhost:3000/file/qwer
     type: String,
     unique: [true, 'Something went wrong! try again'],
   },

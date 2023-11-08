@@ -4,6 +4,8 @@ const crypto = require('crypto');
 const CustomError = require('../utils/CustomError');
 const Token = require('../models/tokenModel');
 const asyncErrorHandler = require('../utils/asyncErrorHandler');
+const { v4: uuidv4 } = require('uuid');
+const Verification = require('../models/verificationModel');
 const {
   signToken,
   saveToken,
@@ -17,11 +19,11 @@ exports.register = asyncErrorHandler(async (req, res, next) => {
     const err = new CustomError('Password does not match', 400);
     return next(err);
   }
-  // const isExisting = await User.findOne({ email });
-  // if (isExisting) {
-  //   const err = new CustomError('Email already exists', 400);
-  //   return next(err);
-  // }
+  const isExisting = await User.findOne({ email });
+  if (isExisting) {
+    const err = new CustomError('Email already exists', 400);
+    return next(err);
+  }
   const user = await User.create({ username, email, password });
   const accessToken = signToken(user.id);
   res.cookie('jwt', accessToken, {
@@ -35,6 +37,8 @@ exports.register = asyncErrorHandler(async (req, res, next) => {
     message: 'User created successfully',
     accessToken,
   });
+
+
 });
 
 exports.login = asyncErrorHandler(async (req, res, next) => {
