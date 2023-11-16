@@ -23,10 +23,22 @@ const userSchema = new mongoose.Schema(
     email: {
       type: String,
       required: [true, 'Please enter an email'],
-      unique: [true, 'Email already exists'],
       trim: true,
       lowercase: true,
-      validate: [validator.isEmail, 'Please enter a valid email'],
+      validate: [
+        {
+          validator: function (email) {
+            return email.endsWith('@ucspyay.edu.mm');
+          },
+          message: 'Please enter a valid UCSPYAY email address',
+        },
+        {
+          validator: function (email) {
+            return !/\s/.test(email);
+          },
+          message: 'Email address should not contain spaces',
+        },
+      ],
     },
     password: {
       type: String,

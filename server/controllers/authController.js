@@ -20,25 +20,6 @@ exports.register = asyncErrorHandler(async (req, res, next) => {
     const err = new CustomError('Password does not match', 400);
     return next(err);
   }
-  // const isExisting = await User.findOne({ email });
-  // if (isExisting) {
-  //   const err = new CustomError('Email already exists', 400);
-  //   return next(err);
-  // }
-  // const user = await User.create({ username, email, password });
-  // const accessToken = signToken(user.id);
-  // res.cookie('jwt', accessToken, {
-  //   httpOnly: true,
-  //   maxAge: 1000 * 60 * 60 * 24 * parseInt(process.env.EXPIRES_IN || 7),
-  // });
-  // saveToken(user._id, accessToken);
-  // res.status(201).json({
-  //   status: 'success',
-  //   user,
-  //   message: 'User created successfully',
-  //   accessToken,
-  // });
-
   let user = await User.findOne({ email });
   const isPendingToVerify = await Verification.find({ email }); //many
   if (user?.verify) {
@@ -60,7 +41,10 @@ exports.register = asyncErrorHandler(async (req, res, next) => {
 
   //sent verification message here.
   const token = uuidv4();
-  const link = `${req.protocol}://${req.get('host')}/auth/verifyemail/${token}`; //i will change frontend url later
+  const link =
+    process.env.FRONTEND_URL ||
+    'http://localhost:5173' + '/verify-email/' + token;
+  // const link = `${req.protocol}://${req.get('host')}/auth/verifyemail/${token}`; //i will change frontend url later
   const message = verifyEmailTemplate(link);
   const hashToken = crypto.createHash('sha256').update(token).digest('hex');
   const verification = await Verification.create({
@@ -74,20 +58,18 @@ exports.register = asyncErrorHandler(async (req, res, next) => {
     return next(err);
   }
   try {
-    sendEmail({
-      email: user.email,
+    await sendEmail({
+      email,
       subject: 'Verify Your Email',
       message,
     });
   } catch (error) {
-    console.log(error);
-    //must clear verification token
     await user.deleteOne();
     await verification.deleteOne();
     const err = new CustomError('Email could not be sent', 500);
     return next(err);
   }
-  res.status(201).send({
+  res.status(200).send({
     success: 'PENDING',
     link,
     message:
@@ -135,7 +117,7 @@ exports.verifyEmail = asyncErrorHandler(async (req, res, next) => {
   res.status(201).json({
     status: 'success',
     user: account,
-    message: 'User created successfully',
+    message: 'Email verified successfully',
     accessToken,
     redirect: '/', //something
   });

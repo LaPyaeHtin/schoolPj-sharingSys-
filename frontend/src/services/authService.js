@@ -1,10 +1,21 @@
 import axios from 'axios';
 
-const authBaseUrl = 'http://localhost:3000/auth';
+const authBaseUrl = 'http://localhost:3001/auth';
 
 const register = async (userData) => {
+  //username email password confirmPassword
   try {
     const response = await axios.post(`${authBaseUrl}/register`, userData);
+    return response.data;
+  } catch (error) {
+    throw error;
+    //
+  }
+};
+
+const verifyEmail = async (token) => {
+  try {
+    const response = await axios.get(`${authBaseUrl}/verifyemail/${token}`);
     return response.data;
   } catch (error) {
     throw error;
@@ -12,6 +23,7 @@ const register = async (userData) => {
 };
 
 const login = async (userData) => {
+  // email password
   try {
     const response = await axios.post(`${authBaseUrl}/login`, userData);
     return response.data;
@@ -30,6 +42,7 @@ const logout = async () => {
 };
 
 const forgotPassword = async (email) => {
+  // email
   try {
     const response = await axios.post(`${authBaseUrl}/forgotpassword`, {
       email,
@@ -75,6 +88,7 @@ const logoutAllDevices = async () => {
 
 export {
   register,
+  verifyEmail,
   login,
   logout,
   forgotPassword,

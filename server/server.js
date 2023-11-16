@@ -15,7 +15,18 @@ const cookieParser = require('cookie-parser');
 
 dbConnect();
 
-app.use(cors((withCredentials = true)));
+app.use(
+  cors({
+    // multiple origin
+    origin: ['http://localhost:3000', 'http://localhost:5173', process.env.FRONTEND_URL], 
+    credentials: true,
+  })
+);
+//cors option with localhost 5173
+// const corsOptions = {
+//   origin: 'http://localhost:5173',
+//   credentials: true,
+
 app.set('view engine', 'ejs');
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
