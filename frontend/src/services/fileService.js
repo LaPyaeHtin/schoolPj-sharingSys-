@@ -1,10 +1,10 @@
-import axios from 'axios';
+import apiService from './apiService';
 
-const fileBaseUrl = 'http://localhost:3000/file';
+const fileBaseUrl = '/file';
 
 const uploadFile = async (formData) => {
   try {
-    const response = await axios.post(`${fileBaseUrl}/upload`, formData);
+    const response = await apiService.post(`${fileBaseUrl}/upload`, formData);
     return response.data;
   } catch (error) {
     throw error;
@@ -13,7 +13,7 @@ const uploadFile = async (formData) => {
 
 const getAllFiles = async () => {
   try {
-    const response = await axios.get(`${fileBaseUrl}`);
+    const response = await apiService.get(`${fileBaseUrl}`);
     return response.data;
   } catch (error) {
     throw error;
@@ -22,7 +22,7 @@ const getAllFiles = async () => {
 
 const updateFile = async (shortId, data) => {
   try {
-    const response = await axios.patch(`${fileBaseUrl}/${shortId}`, data);
+    const response = await apiService.patch(`${fileBaseUrl}/${shortId}`, data);
     return response.data;
   } catch (error) {
     throw error;
@@ -31,7 +31,7 @@ const updateFile = async (shortId, data) => {
 
 const deleteFile = async (shortId) => {
   try {
-    const response = await axios.delete(`${fileBaseUrl}/${shortId}`);
+    const response = await apiService.delete(`${fileBaseUrl}/${shortId}`);
     return response.data;
   } catch (error) {
     throw error;

@@ -14,11 +14,6 @@ const HostingSchema = new mongoose.Schema(
       trim: true,
       unique: [true, 'Domain is already used!'],
     },
-    customDomain: {
-      type: String,
-      trim: true,
-      unique: [true, 'Custom domain is already used!'],
-    },
     description: {
       type: String,
     },
@@ -26,12 +21,6 @@ const HostingSchema = new mongoose.Schema(
       type: String,
       enum: ['free', 'premium'],
       default: 'free',
-    },
-    path: {
-      type: String,
-      required: true,
-      trim: true,
-      unique: [true, 'something went wrong! try again'],
     },
     isActive: {
       type: Boolean,

@@ -10,6 +10,7 @@ const {
 } = require('../controllers/urlShortenController');
 
 router.route('/').post(verifyJWT, createShortenUrl).get(verifyJWT, getAllUrls);
+
 router
   .route('/:shortUrl')
   .post(getUrl)

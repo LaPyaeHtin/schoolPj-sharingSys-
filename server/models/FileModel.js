@@ -1,25 +1,34 @@
 const mongoose = require('mongoose');
 
 const FileSchema = new mongoose.Schema({
-  shortId: { //localhost:3000/file/qwer
+  shortId: {
+    //localhost:3000/file/qwer
     type: String,
     unique: [true, 'Something went wrong! try again'],
   },
-  customLink: {
+  user_id: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+    default: undefined,
+  },
+  password: {
     type: String,
+    minlength: 3,
     trim: true,
-    unique: [true, 'url is already used!'],
+  },
+  limit: {
+    type: Number,
+    default: 1000,
+  },
+  downloadCount: {
+    type: Number,
+    default: 0,
   },
   filename: {
     type: String,
   },
   originalFilename: {
     type: String,
-  },
-  user_id: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
-    default: undefined,
   },
   fileSize: {
     type: Number,

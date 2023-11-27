@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { register } from '../services/authService';
+import { register } from '../../services/authService';
 import axios from 'axios';
 
 const Register = () => {
@@ -32,12 +32,13 @@ const Register = () => {
       setError(null);
     } catch (error) {
       if (error.response) {
+        setSuccess(null);
+        console.log(success);
         setError(
           error.response.data.message ||
             'An error occurred during registration.'
         );
         console.error('Registration error:', error.response.data);
-        setSuccess(null);
       } else if (error.request) {
         setError('No response received from the server.');
         console.error('No response received:', error.request);
@@ -83,7 +84,6 @@ const Register = () => {
         <button type='submit'>Register</button>
       </form>
       {success && <p style={{ color: 'green' }}>{success}</p>}
-
       {error && <p style={{ color: 'red' }}>{error}</p>}
       {success && <p style={{ color: 'green' }}>{success}</p>}
     </>

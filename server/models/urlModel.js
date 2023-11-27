@@ -12,18 +12,17 @@ const urlSchema = new mongoose.Schema(
       required: true,
       trim: true,
     },
-    customLink: {
-      type: String,
-      trim: true,
-      // unique: [true, 'url is already used!'],
-      default: undefined,
-    },
     shortUrl: {
       type: String,
       required: true,
       unique: [true, 'Something went wrong! try again'],
       trim: true,
-      lowercase: true,
+      validate: {
+        validator: function (value) {
+          return /^[a-zA-Z0-9-_]+$/.test(value);
+        },
+        message: 'Link should not contain special characters or spaces',
+      },
     },
     clickCount: {
       type: Number,

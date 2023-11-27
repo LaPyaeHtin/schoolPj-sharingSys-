@@ -123,6 +123,7 @@ const userSchema = new mongoose.Schema(
 
 userSchema.pre('save', async function (next) {
   try {
+    if (!this.filePath) this.filePath = generateRandomString(16);
     if (!this.isModified('password')) return next();
     this.password = await bcrypt.hash(this.password, 10);
     next();

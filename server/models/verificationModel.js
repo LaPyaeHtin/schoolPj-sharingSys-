@@ -12,12 +12,11 @@ const verificationSchema = new mongoose.Schema({
   expiresAt: {
     type: Date,
     default: Date.now + 1000 * 60 * 10, // 10 minutes
-    index: { expires: '1s' },
+    index: { expires: '10m' },
   },
   createdAt: {
     type: Date,
     default: Date.now,
-    expires: 60, // this is 10 seconds in seconds
   },
 });
 

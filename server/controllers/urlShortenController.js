@@ -2,13 +2,12 @@
 const Url = require('../models/urlModel');
 const CustomError = require('../utils/CustomError');
 const asyncErrorHandler = require('../utils/asyncErrorHandler');
-const generateRandomString = require('../helper/generateRandomString');
+const generateRandomString = require('./../helper/generateRandomString');
 const User = require('../models/userModel');
 const ApiFeactures = require('../utils/ApiFeactures');
 
 exports.createShortenUrl = asyncErrorHandler(async (req, res, next) => {
-  console.log(req.user);
-  const { url, customLink = undefined, password = undefined, limit } = req.body;
+  const { url, customLink, password = undefined, limit } = req.body;
   if (
     !url ||
     !(
@@ -32,7 +31,7 @@ exports.createShortenUrl = asyncErrorHandler(async (req, res, next) => {
     }
     if (customLink) {
       //chech length of customLink
-      if (customLink.length < 3 || is) {
+      if (customLink.length < 3) {
         const err = new CustomError(
           'Custom link must be atleast 3 characters',
           400
@@ -40,10 +39,10 @@ exports.createShortenUrl = asyncErrorHandler(async (req, res, next) => {
         return next(err);
       }
       //check if customLink already exist?
-      const isExist = await Url.findOne({ customLink });
+      const isExist = await Url.findOne({ shortUrl: customLink });
       // console.log(isExist?._id.toString());
       if (isExist) {
-        const err = new CustomError('Custom link already used', 400);
+        const err = new CustomError('link already exist!', 400);
         return next(err);
       }
     }
@@ -58,6 +57,7 @@ exports.createShortenUrl = asyncErrorHandler(async (req, res, next) => {
       }
     }
   }
+
   const shortUrl = generateRandomString(process.env.URL_LENGTH);
   // const user = req.user ? req.user._id : null; // or undefined
   const user_id = req.user?._id;
@@ -65,24 +65,25 @@ exports.createShortenUrl = asyncErrorHandler(async (req, res, next) => {
 
   const newUrl = await Url.create({
     url,
-    customLink,
-    shortUrl,
+    shortUrl: customLink || shortUrl,
     user_id,
     password,
     limit: limit || 1000,
   });
-  const shortenedUrl = `${req.protocol}://${req.get('host')}/url/${shortUrl}`;
-  console.log(shortenedUrl);
+  // const shortenedUrl = `${req.protocol}://${req.get('host')}/url/${shortUrl}`;
+  // console.log(shortenedUrl);
   res.status(201).json({
     status: 'success',
     data: newUrl,
-    shortenedUrl,
+    // shortenedUrl,
   });
 });
 
+// i have to solve if i wont use customLink and if use add customLink i will store also in shortUrl
 exports.getAllUrls = asyncErrorHandler(async (req, res, next) => {
   // console.log('here');
   // req.user = user; //for testing
+
   if (!req.user) {
     const err = new CustomError(
       'only login user can see the generated url',
@@ -90,71 +91,45 @@ exports.getAllUrls = asyncErrorHandler(async (req, res, next) => {
     );
     return next(err);
   }
-  // const user_id = req.user?._id;
-  // const apiFeactures = new ApiFeactures(Url.find({ user_id }), req.query)
-  //   .filter()
-  //   .sort()
-  //   .limitFields()
-  //   .paginate();
-  // const urls = await apiFeactures.query;
-  // localhost:3000/api/v1/url?isActive=true&clickCount[gte]=0&limit[lt]=10
-  let queryStr = JSON.stringify(req.query);
-  queryStr = queryStr.replace(
-    /\b(gt|gte|lt|lte|in)\b/g,
-    (match) => `$${match}`
-  );
-  const queryObj = JSON.parse(queryStr);
-
-  let query = Url.find();
-
-  // localhost:3000/api/v1/url?sort=-createdAt,clickCount
-  // if (req.query.sort) {
-  //   const sortBy = req.query.sort.split(',').join(' ');
-  //   query = query.sort(sortBy);
-  // } else {
-  //   query = query.sort('-createdAt');
-  // }
-
-  // if (req.query.fields) {
-  //   const fields = req.query.fields.split(',').join(' ');
-  //   query = query.select(fields);
-  // } else {
-  //   query = query.select('-__v');
-  // }
-
-  //pagination
-  // localhost:3000/api/v1/url?page=2&limit=10
-  // const page = req.query.page * 1 || 1;
-  // const limit = req.query.limit * 1 || 10;
-  // const skip = (page - 1) * limit;
-  // query = query.skip(skip).limit(limit);
-  // if (req.query.limit) {
-  //   const total = await Url.countDocuments();
-  //   if (skip >= total) {
-  //     const err = new CustomError('This page does not exist', 404);
-  //     return next(err);
-  //   }
-  // }
-
-  const urls = await query;
-
-  // const urls = await Url.find({ user_id: req.user?._id });
-
+  const user_id = req.user?._id;
+  const apiFeactures = new ApiFeactures(Url.find({ user_id }), req.query)
+    .filter()
+    .sort()
+    .limitFields()
+    .paginate();
+  const urls = await apiFeactures.query;
   res.status(200).json({
     status: 'success',
+    isPremium: req.user?.isPremium,
     data: urls,
   });
 });
+
+// exports.getUrl = asyncErrorHandler(async (req, res, next) => {
+//   const { shortUrl } = req.params;
+//   let url = await Url.findOne({ shortUrl });
+//   if (!url) {
+//     url = await Url.findOne({ customLink: shortUrl });
+//   }
+
+//   if (!url) {
+//     const err = new CustomError('url not found', 404);
+//     return next(err);
+//   }
+//   //how can i do if password id exist or not and if exist i will shoe password page
+//   //if not exist i will redirect to url
+
+// });
 
 exports.getUrl = asyncErrorHandler(async (req, res, next) => {
   //user can request with password or not
   const { shortUrl } = req.params;
   const { password } = req.body;
 
-  let url = await Url.findOne({ shortUrl });
-  if (!url) {
-    url = await Url.findOne({ customLink: shortUrl });
-  }
+  const url = await Url.findOne({ shortUrl });
+  // if (!url) {
+  //   url = await Url.findOne({ customLink: shortUrl });
+  // }
   if (!url) {
     const err = new CustomError('url not found', 404);
     return next(err);
@@ -172,16 +147,16 @@ exports.getUrl = asyncErrorHandler(async (req, res, next) => {
 
   if (url.password) {
     //if url contain password, need to render password page
-    /*if (!password) {
+    if (!password) {
       const err = new CustomError('Please enter password', 400);
       return next(err);
-    }*/ // i think it is not necessary
+    } // i think it is not necessary
     if (url.password !== password) {
       const err = new CustomError('Password is incorrect', 400);
       return next(err);
     }
   }
-  console.log('here');
+  // console.log('here');
   let redirectUrl = url.url;
   if (
     !redirectUrl.startsWith('http://') &&
@@ -224,19 +199,14 @@ exports.deleteUrl = asyncErrorHandler(async (req, res, next) => {
 exports.updateUrl = asyncErrorHandler(async (req, res, next) => {
   // req.user = user; //for testing
   const { shortUrl } = req.params;
-  const {
-    url = undefined,
-    customLink = undefined,
-    password = undefined,
-    isActive = undefined,
-  } = req.body;
+  const { url, customLink, password, isActive } = req.body;
   const foundUrl = await Url.findOne({ shortUrl });
   if (!foundUrl) {
     const err = new CustomError('URL not found', 404);
     return next(err);
   }
 
-  console.log(foundUrl);
+  // console.log(foundUrl);
 
   if (req.user?.id !== foundUrl.user_id.toString()) {
     const err = new CustomError('You can update only your own url', 400);
@@ -255,7 +225,7 @@ exports.updateUrl = asyncErrorHandler(async (req, res, next) => {
       );
       return next(err);
     }
-    if (customLink) updateFields.customLink = customLink;
+    if (customLink) updateFields.shortUrl = customLink;
     if (password) updateFields.password = password;
   }
 

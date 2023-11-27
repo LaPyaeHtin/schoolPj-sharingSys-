@@ -1,10 +1,9 @@
-import axios from 'axios';
-
-const urlBaseUrl = 'http://localhost:3000/url';
+import apiService from './apiService';
+const urlBaseUrl = '/url';
 
 const createShortenUrl = async (data) => {
   try {
-    const response = await axios.post(`${urlBaseUrl}`, data);
+    const response = await apiService.post(`${urlBaseUrl}`, data);
     return response.data;
   } catch (error) {
     throw error;
@@ -13,16 +12,18 @@ const createShortenUrl = async (data) => {
 
 const getAllUrls = async () => {
   try {
-    const response = await axios.get(`${urlBaseUrl}`);
+    const response = await apiService.get(`${urlBaseUrl}`);
     return response.data;
   } catch (error) {
     throw error;
   }
 };
 
-const getUrl = async (shortUrl) => {
+const getUrl = async (shortUrl, password) => {
   try {
-    const response = await axios.post(`${urlBaseUrl}/${shortUrl}`);
+    const response = await apiService.post(`${urlBaseUrl}/${shortUrl}`, {
+      password,
+    });
     return response.data;
   } catch (error) {
     throw error;
@@ -31,7 +32,7 @@ const getUrl = async (shortUrl) => {
 
 const deleteUrl = async (shortUrl) => {
   try {
-    const response = await axios.delete(`${urlBaseUrl}/${shortUrl}`);
+    const response = await apiService.delete(`${urlBaseUrl}/${shortUrl}`);
     return response.data;
   } catch (error) {
     throw error;
@@ -40,7 +41,7 @@ const deleteUrl = async (shortUrl) => {
 
 const updateUrl = async (shortUrl, data) => {
   try {
-    const response = await axios.patch(`${urlBaseUrl}/${shortUrl}`, data);
+    const response = await apiService.patch(`${urlBaseUrl}/${shortUrl}`, data);
     return response.data;
   } catch (error) {
     throw error;

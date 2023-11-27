@@ -40,7 +40,7 @@ exports.register = asyncErrorHandler(async (req, res, next) => {
   }
 
   //sent verification message here.
-  const token = uuidv4();
+  const token = uuidv4().replace(/-/g, '');
   const link =
     process.env.FRONTEND_URL ||
     'http://localhost:5173' + '/verify-email/' + token;
@@ -82,13 +82,14 @@ exports.verifyEmail = asyncErrorHandler(async (req, res, next) => {
   //decrypt token and search from database
   const hashedToken = crypto.createHash('sha256').update(token).digest('hex');
   const verification = await Verification.findOne({ token: hashedToken });
-
+  console.log(verification);
   if (!verification) {
     const err = new CustomError('Token is invalid or has expired', 400);
     return next(err);
   }
   const account = await User.findOne({ email: verification.email });
-  console.log(account);
+
+  //actually dont need these two error
   if (!account) {
     const err = new CustomError('Account is not found', 400);
     return next(err);
@@ -97,6 +98,7 @@ exports.verifyEmail = asyncErrorHandler(async (req, res, next) => {
     const err = new CustomError('Email already verified', 400);
     return next(err);
   }
+
   if (verification.expiresAt < Date.now()) {
     console.log('here');
     await verification.deleteOne();
@@ -187,9 +189,10 @@ exports.forgotPassword = asyncErrorHandler(async (req, res, next) => {
     const err = new CustomError('Please provide email', 400);
     return next(err);
   }
+  console.log(email);
   const user = await User.findOne({ email });
   if (!user) {
-    const err = new CustomError('This email is not registered', 404);
+    const err = new CustomError('User not found', 404);
     return next(err);
   }
   const resetToken = user.createPasswordResetToken();
@@ -197,9 +200,12 @@ exports.forgotPassword = asyncErrorHandler(async (req, res, next) => {
   await user.save({ validateBeforeSave: false });
   //send email with reset token
   //it should be something url
-  const resetURL = `${req.protocol}://${req.get(
-    'host'
-  )}/auth/resetpassword/${resetToken}`;
+  // const resetURL = `${req.protocol}://${req.get(
+  //   'host'
+  // )}/auth/resetpassword/${resetToken}`;
+  const resetURL = `${
+    process.env.FRONTEND_URL || 'http://localhost:5173'
+  }/reset-password/${resetToken}`;
   const message = forgotPasswordEmailTemplate(resetURL, user?.username);
 
   try {
@@ -237,6 +243,7 @@ exports.resetPassword = asyncErrorHandler(async (req, res, next) => {
     return next(err);
   }
   const { password, confirmPassword } = req.body;
+  console.log(password, confirmPassword);
   if (!password || !confirmPassword) {
     const err = new CustomError('Please provide password', 400);
     return next(err);
@@ -295,6 +302,7 @@ exports.changePassword = asyncErrorHandler(async (req, res, next) => {
   });
 });
 
+exports.loginedDevices = asyncErrorHandler(async (req, res, next) => {});
 exports.logoutAllDevices = asyncErrorHandler(async (req, res, next) => {
   const currentToken = req?.cookies?.jwt; // i am not sure authorization or cookie when i use frontend
 

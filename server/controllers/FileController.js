@@ -1,37 +1,79 @@
-const File = require('../models/FileModel');
-const customError = require('../utils/CustomError');
-const asyncErrorHandler = require('../utils/asyncErrorHandler');
-const generateRandomString = require('../helper/generateRandomString');
+const File = require('../models/FileModel.js');
+const CustomError = require('../utils/CustomError.js');
+const asyncErrorHandler = require('../utils/asyncErrorHandler.js');
+const generateRandomString = require('./../helper/generateRandomString.js');
+const path = require('path');
 
 // Upload File @ POST /file/upload
 exports.uploadFile = asyncErrorHandler(async (req, res, next) => {
+  const { customLink, password, limit, customFileName } = req.body;
   const user_id = req.user?._id || undefined;
-  const originalFilenames = req.files.map((file) => file.originalname);
-  const filenames = req.files.map((file) => file.filename);
+  const originalFilename = customFileName
+    ? `${customFileName}${path.extname(req.file?.originalname)}`
+    : req.file?.originalname;
+  const filename = req.file?.filename;
+  const fileSize = req.file?.size || 0;
 
-  const files = originalFilenames.map((originalFilename, index) => ({
-    shortId: generateRandomString(),
+  if (customLink || password || limit) {
+    if (!req.user?.isPremium) {
+      const err = new CustomError(
+        'these feactures are only available for premium users',
+        400
+      );
+      return next(err);
+    }
+    if (customLink) {
+      //chech length of customLink
+      if (customLink.length < 3) {
+        const err = new CustomError(
+          'Custom link must be atleast 3 characters',
+          400
+        );
+        return next(err);
+      }
+      //check if customLink already exist?
+      const isExist = await File.findOne({ shortId: customLink });
+      if (isExist) {
+        const err = new CustomError('link already exist!', 400);
+        return next(err);
+      }
+    }
+    //check password contain or not and length
+    if (password) {
+      if (password.length < 3) {
+        const err = new CustomError(
+          'Password must be atleast 3 characters',
+          400
+        );
+        return next(err);
+      }
+    }
+  }
+
+  const file = {
+    shortId: customLink || generateRandomString(),
     originalFilename,
-    filename: filenames[index],
+    filename,
     user_id,
-  }));
-  // Save files to the database
-  await File.insertMany(files);
-
-  res.status(200).json({ message: 'Files uploaded successfully.' });
+    fileSize,
+    password: password || undefined,
+    limit: limit || undefined,
+  };
+  // Save file to the database
+  await File.create(file);
+  res.status(200).json({ message: 'File uploaded successfully.' });
 });
 
 // Get All Files @ GET /file
 exports.getAllFiles = asyncErrorHandler(async (req, res, next) => {
   if (!req.user) {
-    const err = new customError(
+    const err = new CustomError(
       'only login user can see the uploaded file',
       400
     );
     return next(err);
   }
   const files = await File.find({ user_id: req.user?._id });
-
   res.status(200).json({
     status: 'success',
     data: files,
@@ -50,12 +92,12 @@ exports.updateFile = asyncErrorHandler(async (req, res, next) => {
   } = req.body;
   const file = await Url.findOne({ shortId });
   if (!file) {
-    const err = new customError('File not found', 404);
+    const err = new CustomError('File not found', 404);
     return next(err);
   }
 
   if (req.user?._id !== file.user_id.toString()) {
-    const err = new customError('You can update only your own url', 400);
+    const err = new CustomError('You can update only your own url', 400);
     return next(err);
   }
 
@@ -65,7 +107,7 @@ exports.updateFile = asyncErrorHandler(async (req, res, next) => {
 
   if (customLink || password) {
     if (!req.user?.isPremium) {
-      const err = new customError(
+      const err = new CustomError(
         'this feature is only available for premium users',
         400
       );
@@ -86,7 +128,7 @@ exports.updateFile = asyncErrorHandler(async (req, res, next) => {
 
   // Check if the URL was found and updated
   if (!updatedUrl) {
-    const err = new customError('URL not found', 404);
+    const err = new CustomError('URL not found', 404);
     return next(err);
   }
 
@@ -104,12 +146,12 @@ exports.deleteFile = asyncErrorHandler(async (req, res, next) => {
   // req.user = user; //for testing
   const file = await File.findOne({ shortUrl });
   if (req.user._id !== file.user_id.toString()) {
-    const err = new customError('You can delete only your own file', 400);
+    const err = new CustomError('You can delete only your own file', 400);
     return next(err);
   }
   // const url = await Url.findByIdAndDelete(id);
   if (!file) {
-    const err = new customError('File not found', 404);
+    const err = new CustomError('File not found', 404);
     return next(err);
   }
 
@@ -124,8 +166,7 @@ exports.deleteFile = asyncErrorHandler(async (req, res, next) => {
       )
     );
   } catch (error) {
-    console.error('Error deleting file:', error);
-    const err = new customError(
+    const err = new CustomError(
       'An error occurred while deleting the file',
       500
     );

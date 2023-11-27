@@ -1,21 +1,21 @@
-import axios from 'axios';
+import apiService from './apiService';
 
-const authBaseUrl = 'http://localhost:3001/auth';
+const authBaseUrl = '/auth';
 
 const register = async (userData) => {
-  //username email password confirmPassword
   try {
-    const response = await axios.post(`${authBaseUrl}/register`, userData);
+    const response = await apiService.post(`${authBaseUrl}/register`, userData);
     return response.data;
   } catch (error) {
     throw error;
-    //
   }
 };
 
 const verifyEmail = async (token) => {
   try {
-    const response = await axios.get(`${authBaseUrl}/verifyemail/${token}`);
+    const response = await apiService.get(
+      `${authBaseUrl}/verifyemail/${token}`
+    );
     return response.data;
   } catch (error) {
     throw error;
@@ -23,9 +23,8 @@ const verifyEmail = async (token) => {
 };
 
 const login = async (userData) => {
-  // email password
   try {
-    const response = await axios.post(`${authBaseUrl}/login`, userData);
+    const response = await apiService.post(`${authBaseUrl}/login`, userData);
     return response.data;
   } catch (error) {
     throw error;
@@ -34,7 +33,7 @@ const login = async (userData) => {
 
 const logout = async () => {
   try {
-    const response = await axios.get(`${authBaseUrl}/logout`);
+    const response = await apiService.get(`${authBaseUrl}/logout`);
     return response.data;
   } catch (error) {
     throw error;
@@ -42,9 +41,8 @@ const logout = async () => {
 };
 
 const forgotPassword = async (email) => {
-  // email
   try {
-    const response = await axios.post(`${authBaseUrl}/forgotpassword`, {
+    const response = await apiService.post(`${authBaseUrl}/forgotpassword`, {
       email,
     });
     return response.data;
@@ -53,11 +51,11 @@ const forgotPassword = async (email) => {
   }
 };
 
-const resetPassword = async (resetToken, newPassword) => {
+const resetPassword = async (resetToken, password, confirmPassword) => {
   try {
-    const response = await axios.patch(
+    const response = await apiService.patch(
       `${authBaseUrl}/resetpassword/${resetToken}`,
-      { newPassword }
+      { password, confirmPassword }
     );
     return response.data;
   } catch (error) {
@@ -67,7 +65,7 @@ const resetPassword = async (resetToken, newPassword) => {
 
 const changePassword = async (passwordData) => {
   try {
-    const response = await axios.patch(
+    const response = await apiService.patch(
       `${authBaseUrl}/changepassword`,
       passwordData
     );
@@ -79,7 +77,7 @@ const changePassword = async (passwordData) => {
 
 const logoutAllDevices = async () => {
   try {
-    const response = await axios.get(`${authBaseUrl}/logoutalldevices`);
+    const response = await apiService.get(`${authBaseUrl}/logoutalldevices`);
     return response.data;
   } catch (error) {
     throw error;
