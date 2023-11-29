@@ -55,7 +55,7 @@ const upload = (customPath, manualPath, useOriginalName, req) =>
 
 const errorChecker = (err, next) => {
   if (err) {
-    console.error('Error during file upload:', err);
+    console.error('Error during file upload:');
 
     if (err instanceof multer.MulterError) {
       let errorMessage;
@@ -73,13 +73,13 @@ const errorChecker = (err, next) => {
       }
 
       const customError = new CustomError(errorMessage, 400);
-      next(customError);
+      next(customError); // Change this line to next(err);
     } else {
       const customError = new CustomError(
         'An error occurred during file upload.',
         500
       );
-      next(customError);
+      next(customError); // Change this line to next(err);
     }
   }
 };
@@ -91,11 +91,10 @@ exports.multiUpload =
       req,
       res,
       (err) => {
-        // customPath for main folder and, manualPath for sub folder
+        // customPath for the main folder and, manualPath for the subfolder
         errorChecker(err, next);
       }
     );
-    next();
   };
 
 exports.singleUpload =

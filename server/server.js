@@ -2,11 +2,11 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 // 1) UNCAUGHT EXCEPTIONS
-// process.on('uncaughtException', (err) => {
-//   console.log('UNCAUGHT EXCEPTION! 💥 Shutting down...');
-//   console.log(err.name, err.message);
-//   process.exit(1);
-// });
+process.on('uncaughtException', (err) => {
+  console.log('UNCAUGHT EXCEPTION! 💥 Shutting down...');
+  console.log(err.name, err.message);
+  process.exit(1);
+});
 const app = express();
 const CustomError = require('./utils/CustomError.js');
 //const { exec,fork } = require('child_process');
@@ -18,7 +18,11 @@ dbConnect();
 app.use(
   cors({
     // multiple origin
-    origin: ['http://localhost:3000', 'http://localhost:5173', process.env.FRONTEND_URL], 
+    origin: [
+      'http://localhost:3000',
+      'http://localhost:5173',
+      process.env.FRONTEND_URL,
+    ],
     credentials: true,
   })
 );
@@ -62,10 +66,10 @@ const server = app.listen(port, () => {
 
 // 2) UNHANDLED REJECTIONS
 
-// process.on('unhandledRejection', (err) => {
-//   console.log('UNHANDLED REJECTION! 💥 Shutting down...');
-//   console.log(err.name, err.message);
-//   server.close(() => {
-//     process.exit(1);
-//   });
-// });
+process.on('unhandledRejection', (err) => {
+  console.log('UNHANDLED REJECTION! 💥 Shutting down...');
+  console.log(err.name, err.message);
+  server.close(() => {
+    process.exit(1);
+  });
+});
