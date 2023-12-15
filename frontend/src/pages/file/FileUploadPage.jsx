@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { uploadFile, getAllFiles } from '../../services/fileService';
+ import './fileUpload.css';
 
 const FileUploadPage = () => {
   const [selectedFile, setSelectedFile] = useState(null);
@@ -63,6 +64,7 @@ const FileUploadPage = () => {
       try {
         const response = await getAllFiles();
         setFiles(response.data);
+        console.log(response);
       } catch (error) {
         console.error('Error fetching files:', error?.response?.data?.message);
         setError(error?.response?.data?.message || 'Error fetching files.');
@@ -73,44 +75,47 @@ const FileUploadPage = () => {
   }, []);
 
   return (
-    <div>
-      <h1>File Upload</h1>
-      <form onSubmit={handleUpload} encType='multipart/form-data'>
-        <input type='file' onChange={handleFileChange} />
-        <input
+    <div className='f-up-box'>
+      
+      <form onSubmit={handleUpload} encType='multipart/form-data' className='f-up'>
+        <fieldset><legend><h1>File Upload</h1></legend>
+        <ul>
+        <li><input type='file' onChange={handleFileChange} /></li>
+        <li><input
           type='text'
           placeholder='Custom Link'
           value={customLink}
           onChange={handleCustomLinkChange}
-        />
-        <input
+        /></li>
+        <li><input
           type='text'
           placeholder='Password'
           value={password}
           onChange={handlePasswordChange}
-        />
-        <input
+        /></li>
+        <li><input
           type='text'
           placeholder='Limit'
           value={limit}
           onChange={handleLimitChange}
-        />
-        <input
+        /></li>
+        <li><input
           type='text'
           placeholder='Custom File Name'
           value={customFileName}
           onChange={handleCustomFileNameChange}
-        />
-        <button type='submit'>Upload File</button>
-        {error && <p style={{ color: 'red' }}>{error}</p>}
-        {uploadMessage && <p style={{ color: 'green' }}>{uploadMessage}</p>}
+        /></li>
+        <li><button type='submit'>Upload File</button></li>
+        <li>{error && <p style={{ color: 'red' }}>{error}</p>}
+        {uploadMessage && <p style={{ color: 'green' }}>{uploadMessage}</p>}</li>
+        </ul> </fieldset>
       </form>
       <h2>Uploaded Files</h2>
-      <ul>
+      
         {files?.map((file) => (
           <li key={file._id}>{file.originalFilename}</li>
         ))}
-      </ul>
+    
     </div>
   );
 };

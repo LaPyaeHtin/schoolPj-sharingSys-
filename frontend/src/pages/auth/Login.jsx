@@ -1,5 +1,9 @@
-import React, { useRef, useState } from 'react';
+import { useRef, useState } from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap CSS
+import 'bootstrap-icons/font/bootstrap-icons.css';
 import { login } from '../../services/authService';
+import './css/login.css'
+import { Link } from 'react-router-dom';
 // import { useHistory } from 'react-router-dom';
 
 const Login = () => {
@@ -47,24 +51,32 @@ const Login = () => {
 
   return (
     <>
-      <h1>Login</h1>
-      <form onSubmit={handleSubmit}>
-        <label htmlFor='email'>Email</label>
+    <div className='l-form-box'>
+      <form onSubmit={handleSubmit} className='l-form'>
+        <fieldset><legend><h1>Login</h1></legend>
+        <ul>
+        <li><i className="bi bi-envelope"></i>
         <input
           type='text'
           id='email'
           ref={emailRef}
           placeholder='Enter email'
-        />
-        <label htmlFor='password'>Password</label>
+        /></li>
+        <li><i className="bi bi-lock"></i>
         <input
           type='password'
           id='password'
           ref={passwordRef}
           placeholder='Enter password'
-        />
-        <button type='submit'>Login</button>
+        /></li>
+        <li><div><button type='submit' className='sub-btn'>Login</button></div></li>
+        </ul>
+        {/* <div className='sub-btn'><button type='submit'>Login</button></div> */}
+        <p>Don't have an account?<Link to="/register" type='submit'>Register</Link></p>
+        
+        </fieldset>
       </form>
+      </div>
       {successMessage && <p style={{ color: 'green' }}>{successMessage}</p>}
       {error && <p style={{ color: 'red' }}>{error}</p>}
     </>

@@ -1,0 +1,256 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+/* .test{
+    position: relative;
+    height: 80px;
+    line-height: 80px;
+}
+ input{
+    position: absolute;
+    width: 100%;
+    outline: none;
+    font-size: 2.2em;
+    padding: 0 30px;
+    line-height: 80px;
+    border-radius: 10px;
+    border: 2px solid #f0ffff;
+    background: transparent;
+    transition: 0.1s ease;
+    z-index: 1111;
+}
+input:focus,
+input:valid{
+    color: #66ff00;
+    border: 4px solid #66ff00;
+}
+input:focus + .linelabel,
+input:valid + .linelabel{
+    color: #66ff00;
+    height: 30px;
+    line-height: 30px;
+    padding: 0 12px;
+     transform: translate(-15px,-15px) scale(0.88);
+    z-index: 1111;
+}
+.linelabel{
+    position: absolute;
+    font-size: 1.6em;
+    color: #f0ffff;
+    padding: 0 25px;
+    margin: 0 20px;
+    background-color: #f0ffff;
+    transition: 0.2s ease;
+} */
+/* .container{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+} */
+.nav{
+    height: 10%;
+    width: 100%;
+    display: flex;
+}
+
+.nav-front{
+    background: gray;
+    width: 20%;
+    font-weight: bold;
+    font-size: 30px;
+    display: flex;
+    justify-content: center;
+   
+}
+.nav-front h2{
+    font-size: 30px;
+    text-align: center;
+}
+.nav-front h2 span{
+    color: blue;
+}
+.nav-end{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80%;
+    height: 100%;
+    background: green;
+}
+.nav-end ul{
+    margin-top: 10px; 
+    
+    
+    align-items: center;
+   
+   display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    list-style-type: none;
+   width: 100%;
+   height: 100%;
+   padding: 0 5%;
+   
+}
+ .nav-end ul li{
+   
+    display: block;
+   
+} 
+.LinkLine{
+    text-decoration: none;
+    
+    color: white;
+    font-size: large;
+}
+.LinkLine:hover{
+    color: blue;
+    
+}
+
+/* .main{
+    height: 80%;
+    width: 100%;
+} */
+.blur-box{
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: purple;
+    align-items: center;
+    justify-content: center; 
+    background: linear-gradient(45deg,white);  
+}
+.blur {
+    margin: auto;
+
+    min-width: 400px;
+    /* padding: 10px; */
+    background: linear-gradient(135deg,rgba(255,255,255,0.1),rgba(255,255,255,0));
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 20px;
+    border: 1px solid rgba(255,255,255,0.18);
+    box-shadow: 0 8px 32px 0 rgba(0,0,0,0.37);
+}
+legend{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    width: 100%;
+}
+legend h2{
+    font-weight: 700;
+    font-size: 48px;
+    color: rgb(68, 5, 93);
+}
+.underline{
+    width: 100px;
+    height: 6px;
+    border-radius: 9px;
+    background-color: rgb(115, 11, 157);
+}
+
+.blur ul{
+    
+    list-style-type: none;
+    display: flex;
+    gap: 18px;
+    margin-top: 40px;
+    flex-direction: column;
+}
+.blur li{
+    /* margin: 30px 5px; */
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+    border-radius: 60px;
+    height: 45px;
+    width: 280px;
+    background-color: #eaeaea;
+}
+.blur li input{
+    border: none;
+    outline: none;
+    background: transparent;
+    color: #797979;
+    font-size: 17px;
+    height: 35px;
+    min-width: 0px;
+   
+}
+.blur li i{
+    margin: 15px;
+    font-weight: bolder;
+
+}
+/* .blur li:last-child{
+    margin: 30px 30px;
+    float: right;
+} */
+.blur input{
+    float: right;
+}
+ .blur-btn{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    background: green;
+} 
+/* .test{
+    position: relative;
+    height: 80px;
+    line-height: 80px;
+}
+ .test + input{
+    position: absolute;
+    width: 100%;
+    outline: none;
+    font-size: 1em;
+    padding: 0 30px;
+    line-height: 80px;
+    border-radius: 10px;
+    border: 6px solid black;
+    background: transparent;
+    transition: 0.1s ease;
+    z-index: 1111;
+}
+.linelabel{
+    position: absolute;
+    font-size: 0.8em;
+    color: black;
+    padding: 0 25px;
+    margin: 0 20px;
+    background-color: #f0ffff;
+    transition: 0.2s ease;
+}
+input:valid,
+input:focus{
+    color: #66ff00;
+    border: 4px solid green;
+}
+input:focus + .linelabel,
+input:focus + .linelabel{
+    color: #66ff00;
+    height: 30px;
+    line-height: 30px;
+    padding: 0 12px;
+     transform: translate(-15px,-15px) scale(0.88);
+    z-index: 1111;
+} */
+@media (max-width:500px) {
+    .blur{
+         width: 100%; 
+       
+    }
+    .blur li{
+        width: 250px;
+    }
+}

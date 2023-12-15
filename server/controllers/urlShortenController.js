@@ -74,6 +74,7 @@ exports.createShortenUrl = asyncErrorHandler(async (req, res, next) => {
   // console.log(shortenedUrl);
   res.status(201).json({
     status: 'success',
+    message: "url created successfully",
     data: newUrl,
     // shortenedUrl,
   });

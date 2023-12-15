@@ -1,5 +1,6 @@
-import React, { useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { forgotPassword } from '../../services/authService';
+import './css/forgetPW.css';
 
 const ForgotPassword = () => {
   const emailRef = useRef();
@@ -28,18 +29,23 @@ const ForgotPassword = () => {
 
   return (
     <>
-      <h1>Forgot Password</h1>
-      <form onSubmit={handleSubmit}>
-        <label htmlFor='email'>Email</label>
+      <div className='f-pw-box'>
+      <form onSubmit={handleSubmit} className='f-pw'>
+        <fieldset><legend><h1>Forgot Password</h1></legend>
+        <ul>
+       <li><label htmlFor='email'>Email</label>
         <input
           type='email'
           id='email'
           ref={emailRef}
           placeholder='Enter your email'
           required
-        />
-        <button type='submit'>Submit</button>
+        /> </li>
+        <li><button type='submit'>Submit</button></li>
+        </ul>
+        </fieldset>
       </form>
+      </div>
       {successMessage && <p style={{ color: 'green' }}>{successMessage}</p>}
       {error && <p style={{ color: 'red' }}>{error}</p>}
     </>

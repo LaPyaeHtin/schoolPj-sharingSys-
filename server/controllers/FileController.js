@@ -77,6 +77,7 @@ exports.getAllFiles = asyncErrorHandler(async (req, res, next) => {
   res.status(200).json({
     status: 'success',
     data: files,
+    isPremium: req.user.isPremium
   });
 });
 

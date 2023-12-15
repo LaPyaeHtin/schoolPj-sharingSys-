@@ -1,0 +1,33 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.f-up-box{
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; 
+}
+.f-up {
+    margin: auto;
+    width: 30%;
+    padding: 10px;
+    /* display: flex;
+    flex-direction: column; */
+}
+.f-up ul{  
+    list-style-type: none;
+}
+.f-up ul li{
+    margin: 30px 30px;
+}
+
+.f-up ul li:last-child{
+    text-align: center;
+    
+}
+/* .f-up input{
+    float: right;
+} */

@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { createShortenUrl, getAllUrls } from '../../services/urlService'; // Import your apiService functions
 import CopyButton from '../../components/CopyButton';
+import './url.css'
+import { Link } from 'react-router-dom';
+
 
 const ShortenUrlApp = () => {
   const [url, setUrl] = useState('');
@@ -12,6 +15,7 @@ const ShortenUrlApp = () => {
   const [isActive, setisActive] = useState(true);
   const [successMessage, setSuccessMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
+  const [isPremium, setIsPremium] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -23,6 +27,7 @@ const ShortenUrlApp = () => {
         limit: limit || undefined,
       };
       const response = await createShortenUrl(data);
+      console.log(response.data);
       setShortenedUrl(response.data.shortUrl);
 
       setSuccessMessage('URL successfully shortened!');
@@ -44,7 +49,10 @@ const ShortenUrlApp = () => {
     const fetchUrls = async () => {
       try {
         const response = await getAllUrls();
+        console.log(response.data);
         setUrls(response.data);
+        setIsPremium(response.isPremium);
+        console.log(response)
       } catch (error) {
         console.error('Error fetching shortened URLs:', error.message);
         setErrorMessage('Failed to fetch shortened URLs. Please try again.');
@@ -60,6 +68,25 @@ const ShortenUrlApp = () => {
 
   return (
     <div>
+      <div className='container'>
+      <div className='nav'>
+      <div className='nav-front'>
+            <h2>Light<span>Code</span></h2>
+        </div>
+          <div className='nav-end'>
+            <ul>
+              <li><Link to='/home' className='LinkLine'>Home</Link></li>
+              <li><Link to='/files' className='LinkLine'>File Upload</Link></li>
+              <li><Link to='/url' className='LinkLine'>Url</Link></li>
+              <li><Link to='/url/:shortUrl' className='LinkLine'>Url Short</Link></li>
+              <li><Link to='/host' className='LinkLine'>Host</Link></li>
+              <li><Link to='/register' className='LinkLine'>Register</Link></li>
+            </ul>
+          </div>
+        </div>
+        {/* <div className='main'> */}
+        <div className='left'>
+      
       <h1>Shorten URL App</h1>
 
       {/* Display success message */}
@@ -67,10 +94,7 @@ const ShortenUrlApp = () => {
 
       {/* Display error message */}
       {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
-
-      {/* Form for creating shortened URLs */}
-      <form onSubmit={handleSubmit}>
-        <label>
+      <label>
           URL:
           <input
             type='text'
@@ -79,41 +103,47 @@ const ShortenUrlApp = () => {
           />
         </label>
         <br />
-        <label>
+      {/* Form for creating shortened URLs */}
+      <form onSubmit={handleSubmit}>
+        <ul className={`${isPremium?'showbox':'donotshow'}`}>
+        
+        <li><label>
           Custom Link:
           <input
             type='text'
             value={customLink}
             onChange={(e) => setCustomLink(e.target.value)}
           />
-        </label>
+        </label></li>
         <br />
-        <label>
+        <li><label>
           Password:
           <input
             type='password'
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-        </label>
+        </label></li>
         <br />
-        <label>
+        <li><label>
           Limit:
           <input
             type='number'
             value={limit}
             onChange={(e) => setLimit(e.target.value)}
           />
-        </label>
+        </label></li>
         <br />
-        <label>
+        <li><label>
           isActive:
           <input
             type='checkbox'
             checked={isActive}
             onChange={handleIsActiveChange}
           />
-        </label>
+        </label></li>
+       
+        </ul>
         <button type='submit'>Shorten URL</button>
       </form>
 
@@ -126,9 +156,10 @@ const ShortenUrlApp = () => {
           </a>
         </div>
       )}
+      </div>
 
       {/* Display list of shortened URLs */}
-      <div>
+      <div className='right'>
         <h2>Your Shortened URLs</h2>
         <table>
           <thead>
@@ -148,7 +179,9 @@ const ShortenUrlApp = () => {
           </tbody>
         </table>
       </div>
+      </div>
     </div>
+    // </div>
   );
 };
 

@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { createHost } from '../../services/hostService';
+import './host.css';
 
 const FileUploadPage = () => {
   const [formData, setFormData] = useState({
@@ -57,23 +58,29 @@ const FileUploadPage = () => {
   };
 
   return (
-    <div>
-      <h1>File Upload Page</h1>
-      <form onSubmit={handleSubmit}>
+    <div className='host-box'>
+
+      <form onSubmit={handleSubmit} className='host'>
+      <fieldset>
+        <legend><h1>File Upload Page</h1></legend>
+        <ul>
+
         {/* ... (previous form inputs) ... */}
 
-        <label>
+        <li><label>
           Choose File(s):
           <input type='file' multiple onChange={handleFileChange} />
-        </label>
-        <br />
+        </label></li>
+      
 
-        <button type='submit'>Upload File(s)</button>
+        <li><button type='submit'>Upload File(s)</button></li>
 
-        {successMessage && (
+        <li>{successMessage && (
           <div style={{ color: 'green' }}>{successMessage}</div>
         )}
-        {errorMessage && <div style={{ color: 'red' }}>{errorMessage}</div>}
+        {errorMessage && <div style={{ color: 'red' }}>{errorMessage}</div>}</li>
+        </ul>
+        </fieldset>
       </form>
     </div>
   );

@@ -1,6 +1,9 @@
-import React, { useRef, useState } from 'react';
+import { useRef, useState } from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap CSS
+import 'bootstrap-icons/font/bootstrap-icons.css';
 import { register } from '../../services/authService';
-import axios from 'axios';
+import './css/register.css'
+import { Link } from 'react-router-dom';
 
 const Register = () => {
   const usernameRef = useRef();
@@ -26,8 +29,8 @@ const Register = () => {
         confirmPassword,
       });
       //change json to string
+      console.log(response.link)
       const data = JSON.stringify(response);
-      console.log('hello');
       setSuccess(data);
       setError(null);
     } catch (error) {
@@ -51,41 +54,89 @@ const Register = () => {
 
   return (
     <>
-      <h1>Register</h1>
-      <form onSubmit={handleSubmit}>
-        <label htmlFor='username'>Username</label>
+    {/* <div className='container'> */}
+        {/* <div className='nav'><div className='nav-front'>
+            <h2>Light<span>Code</span></h2>
+        </div>
+          <div className='nav-end'>
+            <ul>
+              <li><Link to='/home' className='LinkLine'>Home</Link></li>
+              <li><Link to='/files' className='LinkLine'>File Upload</Link></li>
+              <li><Link to='/url' className='LinkLine'>Url</Link></li>
+              <li><Link to='/url/:shortUrl' className='LinkLine'>Url Short</Link></li>
+              <li><Link to='/host' className='LinkLine'>Host</Link></li>
+              <li><Link to='/register' className='LinkLine'>Register</Link></li>
+            </ul>
+          </div></div> */}
+        {/* <div className='main'> */}
+      <div className='blur-box'>
+        <div className='nav'>
+      <div className='nav-front'>
+            <h2>Light<span>Code</span></h2>
+        </div>
+          <div className='nav-end'>
+            <ul>
+              <li><Link to='/home' className='LinkLine'>Home</Link></li>
+              <li><Link to='/files' className='LinkLine'>File Upload</Link></li>
+              <li><Link to='/url' className='LinkLine'>Url</Link></li>
+              <li><Link to='/url/:shortUrl' className='LinkLine'>Url Short</Link></li>
+              <li><Link to='/host' className='LinkLine'>Host</Link></li>
+              <li><Link to='/register' className='LinkLine'>Register</Link></li>
+            </ul>
+          </div>
+        </div>
+      <form onSubmit={handleSubmit} className='blur'>
+        <fieldset>
+        <legend><h2>Sign in</h2><p className='underline'></p></legend>
+       
+        <ul>
+        <li><i className="bi bi-person"></i>
+          {/* <label htmlFor='username'>Username</label> */}
         <input
           type='text'
           id='username'
           ref={usernameRef}
           placeholder='Enter username'
         />
-        <label htmlFor='email'>Email</label>
+        </li>
+        <li><i className="bi bi-envelope"></i>
+          {/* <label htmlFor='email'>Email</label> */}
         <input
           type='email'
           id='email'
           ref={emailRef}
           placeholder='Enter email'
-        />
-        <label htmlFor='password'>Password</label>
+        /></li>
+        <li><i className="bi bi-lock"></i>
+          {/* <label htmlFor='password'>Password</label> */}
         <input
           type='password'
           id='password'
           ref={passwordRef}
           placeholder='Enter password'
-        />
-        <label htmlFor='confirmPassword'>Confirm Password</label>
+        /></li>
+        <li><i className="bi bi-check"></i>
+         
         <input
           type='password'
           id='confirmPassword'
           ref={confirmPasswordRef}
           placeholder='Confirm password'
-        />
-        <button type='submit'>Register</button>
+        /></li>
+      
+        </ul>
+        <div className='blur-btn'><button type='submit' className='btn'>Register</button></div>
+        <p>Already have an account?<Link to="/login" type='submit'>Click here Login</Link></p>
+        
+        
+        </fieldset>
       </form>
+      </div>
       {success && <p style={{ color: 'green' }}>{success}</p>}
       {error && <p style={{ color: 'red' }}>{error}</p>}
       {success && <p style={{ color: 'green' }}>{success}</p>}
+      {/* </div> */}
+      {/* </div> */}
     </>
   );
 };

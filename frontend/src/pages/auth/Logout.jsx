@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { logout } from '../../services/authService';
+import './css/logout.css';
 
 const Logout = () => {
   const [message, setMessage] = useState(null);
@@ -19,9 +20,11 @@ const Logout = () => {
   }, [history]);
 
   return (
-    <div>
+    <div className='l-out'>
+      <div className='l-out-box'>
       <h1>Logging out...</h1>
       <h2>{message}</h2>
+      </div>
     </div>
   );
 };

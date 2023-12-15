@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { verifyEmail } from '../../services/authService';
 import { useParams } from 'react-router-dom';
+import './css/emailVerification.css';
 
 const EmailVerificationPage = () => {
   const [verificationStatus, setVerificationStatus] = useState('Verifying...');
@@ -21,9 +22,11 @@ const EmailVerificationPage = () => {
   }, [token]);
 
   return (
-    <div>
+    <div className='e-verifi'>
+      <div className='e-verifi-box'>
       <h1>Email Verification</h1>
       <div>{verificationStatus}</div>
+      </div>
     </div>
   );
 };

@@ -1,6 +1,7 @@
-import React, { useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { resetPassword } from '../../services/authService';
+import './css/resetPW.css';
 
 const ResetPassword = () => {
   const { token } = useParams();
@@ -33,26 +34,30 @@ const ResetPassword = () => {
   };
 
   return (
-    <div>
-      <h1>Reset Password</h1>
-      <form onSubmit={handleResetPassword}>
-        <label htmlFor='password'>New Password</label>
+    <div className='r-pw-box'>
+      
+      <form onSubmit={handleResetPassword} className='r-pw'>
+        <fieldset><legend><h1>Reset Password</h1></legend>
+        <ul>
+        <li><label htmlFor='password'>New Password</label>
         <input
           type='password'
           id='password'
           ref={newPasswordRef}
           placeholder='Enter new password'
           required
-        />
-        <label htmlFor='confirmPassword'>Confirm Password</label>
+        /></li>
+        <li><label htmlFor='confirmPassword'>Confirm Password</label>
         <input
           type='password'
           id='confirmPassword'
           ref={confirmPasswordRef}
           placeholder='Confirm new password'
           required
-        />
-        <button type='submit'>Reset Password</button>
+        /></li>
+        <li><button type='submit'>Reset Password</button></li>
+        </ul>
+        </fieldset>
       </form>
       {successMessage && <p style={{ color: 'green' }}>{successMessage}</p>}
       {error && <p style={{ color: 'red' }}>{error}</p>}

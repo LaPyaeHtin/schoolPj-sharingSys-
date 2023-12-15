@@ -1,0 +1,122 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.container{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100vh;
+}
+.nav{
+    height: 10%;
+    display: flex;
+
+   
+}
+.nav-front{
+    background: gray;
+    width: 20%;
+    font-weight: bold;
+    font-size: 30px;
+    display: flex;
+    justify-content: center;
+   
+}
+.nav-front h2{
+    font-size: 30px;
+    text-align: center;
+}
+.nav-front h2 span{
+    color: blue;
+}
+.nav-end{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80%;
+    height: 100%;
+    background: green;
+}
+.nav-end ul{
+    margin-top: 10px; 
+    
+    
+    align-items: center;
+   
+   display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    list-style-type: none;
+   width: 100%;
+   height: 100%;
+   padding: 0 5%;
+   
+}
+ .nav-end ul li{
+   
+    display: block;
+   
+} 
+.LinkLine{
+    text-decoration: none;
+    color: white;
+    font-size: large;
+}
+.LinkLine:hover{
+    color: blue;
+   
+}
+.main{
+    display: flex;
+    flex-direction: row;
+}
+.left{
+    width: 50%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; 
+}
+.right{
+    width: 50%;
+    display: flex;
+    flex-direction: column; 
+    margin: 5% 5%;
+}
+h2{
+    text-align: center;
+    display: block;
+    margin: 5% 5%;
+}
+.left ul{
+    
+    list-style-type: none;
+}
+.left li{
+    margin: 10px 30px;
+}
+.left li:last-child{
+    margin: 10px 30px;
+    float: right;
+}
+.left input{
+    float: right;
+    margin: 0 10px;
+}
+table{
+    border-collapse: collapse;
+    width: 100%;
+}
+th,td{
+    text-align: left;
+    padding: 8px;
+}
+tr:nth-child(even){
+    background-color: #f2f2f2;
+}
+.donotshow{
+     display: none;
+} 
