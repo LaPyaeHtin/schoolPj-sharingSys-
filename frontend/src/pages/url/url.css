@@ -3,16 +3,15 @@
     padding: 0;
     box-sizing: border-box;
 }
-.container{
+.container1{
     display: flex;
     flex-direction: column;
-    width: 100%;
-    height: 100vh;
+    
 }
 .nav{
     height: 10%;
     display: flex;
-
+background-color: black;
    
 }
 .nav-front{
@@ -40,7 +39,7 @@
     background: green;
 }
 .nav-end ul{
-    margin-top: 10px; 
+    margin-top: 20px; 
     
     
     align-items: center;

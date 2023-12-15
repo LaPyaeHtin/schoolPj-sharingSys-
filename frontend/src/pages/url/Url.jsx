@@ -67,8 +67,8 @@ const ShortenUrlApp = () => {
   };
 
   return (
-    <div>
-      <div className='container'>
+    <div className='container1'>
+      
       <div className='nav'>
       <div className='nav-front'>
             <h2>Light<span>Code</span></h2>
@@ -84,7 +84,7 @@ const ShortenUrlApp = () => {
             </ul>
           </div>
         </div>
-        {/* <div className='main'> */}
+        <div className='main'> 
         <div className='left'>
       
       <h1>Shorten URL App</h1>
@@ -107,6 +107,7 @@ const ShortenUrlApp = () => {
       <form onSubmit={handleSubmit}>
         <ul className={`${isPremium?'showbox':'donotshow'}`}>
         {/* sd */}
+        {/* dfgdf */}
         <li><label>
           Custom Link:
           <input
@@ -181,7 +182,7 @@ const ShortenUrlApp = () => {
       </div>
       </div>
     </div>
-    // </div>
+    
   );
 };
 

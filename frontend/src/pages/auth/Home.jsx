@@ -4,17 +4,15 @@ import './css/home.css';
 
 const Home = () => {
 
-  const[isActive,setActive]=useState(false);
-  const TT=()=>{
-    setActive(!isActive);
-  }
+  
+  
 return (
      <div className="home">
-         <div className='nav'>
-          <div className='nav-front'>
-            <h2>Light<span>Code</span></h2>
+         <div className='navHome'>
+          <div className='nav-frontHome'>
+            {/* <h2>Light<span>Code</span></h2> */}
         </div>
-          <div className='nav-end'>
+          <div className='nav-endHome'>
             <ul>
               <li><Link to='/home' className='LinkLine'>Home</Link></li>
               <li><Link to='/files' className='LinkLine'>File Upload</Link></li>
