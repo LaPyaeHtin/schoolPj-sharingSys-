@@ -4,6 +4,7 @@
     box-sizing: border-box;
 }
 .container1{
+    height: 100vh;
     display: flex;
     flex-direction: column;
     
@@ -11,8 +12,7 @@
 .nav{
     height: 10%;
     display: flex;
-background-color: black;
-   
+    
 }
 .nav-front{
     background: gray;
@@ -35,26 +35,23 @@ background-color: black;
     justify-content: center;
     align-items: center;
     width: 80%;
-    height: 100%;
+   
     background: green;
 }
 .nav-end ul{
-    margin-top: 20px; 
-    
     
     align-items: center;
-   
-   display: flex;
+    display: flex;
     flex-direction: row;
     justify-content: space-evenly;
     list-style-type: none;
-   width: 100%;
-   height: 100%;
-   padding: 0 5%;
+    width: 100%;
+    height: 100%;
+    
    
 }
  .nav-end ul li{
-   
+   margin-top: 10px;
     display: block;
    
 } 

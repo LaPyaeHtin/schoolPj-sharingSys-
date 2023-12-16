@@ -3,60 +3,20 @@
     padding: 0;
     box-sizing: border-box;
 }
-/* .test{
-    position: relative;
-    height: 80px;
-    line-height: 80px;
-}
- input{
-    position: absolute;
-    width: 100%;
-    outline: none;
-    font-size: 2.2em;
-    padding: 0 30px;
-    line-height: 80px;
-    border-radius: 10px;
-    border: 2px solid #f0ffff;
-    background: transparent;
-    transition: 0.1s ease;
-    z-index: 1111;
-}
-input:focus,
-input:valid{
-    color: #66ff00;
-    border: 4px solid #66ff00;
-}
-input:focus + .linelabel,
-input:valid + .linelabel{
-    color: #66ff00;
-    height: 30px;
-    line-height: 30px;
-    padding: 0 12px;
-     transform: translate(-15px,-15px) scale(0.88);
-    z-index: 1111;
-}
-.linelabel{
-    position: absolute;
-    font-size: 1.6em;
-    color: #f0ffff;
-    padding: 0 25px;
-    margin: 0 20px;
-    background-color: #f0ffff;
-    transition: 0.2s ease;
-} */
-/* .container{
+
+ .containerReg{
     display: flex;
     flex-direction: column;
     width: 100%;
-    height: 100%;
-} */
-.nav{
+    height: 100%
+} 
+.navReg{
     height: 10%;
-    width: 100%;
+   
     display: flex;
 }
 
-.nav-front{
+.nav-frontReg{
     background: gray;
     width: 20%;
     font-weight: bold;
@@ -65,38 +25,35 @@ input:valid + .linelabel{
     justify-content: center;
    
 }
-.nav-front h2{
+.nav-frontReg h2{
     font-size: 30px;
     text-align: center;
 }
-.nav-front h2 span{
+.nav-frontReg h2 span{
     color: blue;
 }
-.nav-end{
+.nav-endReg{
     display: flex;
     justify-content: center;
     align-items: center;
     width: 80%;
-    height: 100%;
+   
     background: green;
 }
-.nav-end ul{
-    margin-top: 10px; 
-    
-    
-    align-items: center;
-   
+.nav-endReg ul{
+  
    display: flex;
+   align-items: center;
     flex-direction: row;
     justify-content: space-evenly;
-    list-style-type: none;
+    list-style-type: none; 
    width: 100%;
-   height: 100%;
-   padding: 0 5%;
+   
+  
    
 }
- .nav-end ul li{
-   
+ .nav-endReg ul li{
+   margin-top: 10px;
     display: block;
    
 } 
@@ -116,9 +73,10 @@ input:valid + .linelabel{
     width: 100%;
 } */
 .blur-box{
-    height: 100vh;
+    
+    width: 100%;
     display: flex;
-    flex-direction: column;
+     flex-direction: column; 
     background: purple;
     align-items: center;
     justify-content: center; 

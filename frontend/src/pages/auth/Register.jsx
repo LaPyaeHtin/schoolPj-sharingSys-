@@ -54,11 +54,12 @@ const Register = () => {
 
   return (
     <>
-    {/* <div className='container'> */}
-        {/* <div className='nav'><div className='nav-front'>
+   <div className='containerReg'> 
+    <nav className='navReg'>
+      <div className='nav-frontReg'>
             <h2>Light<span>Code</span></h2>
         </div>
-          <div className='nav-end'>
+          <div className='nav-endReg'>
             <ul>
               <li><Link to='/home' className='LinkLine'>Home</Link></li>
               <li><Link to='/files' className='LinkLine'>File Upload</Link></li>
@@ -67,24 +68,9 @@ const Register = () => {
               <li><Link to='/host' className='LinkLine'>Host</Link></li>
               <li><Link to='/register' className='LinkLine'>Register</Link></li>
             </ul>
-          </div></div> */}
-        {/* <div className='main'> */}
-      <div className='blur-box'>
-        <div className='nav'>
-      <div className='nav-front'>
-            <h2>Light<span>Code</span></h2>
-        </div>
-          <div className='nav-end'>
-            <ul>
-              <li><Link to='/home' className='LinkLine'>Home</Link></li>
-              <li><Link to='/files' className='LinkLine'>File Upload</Link></li>
-              <li><Link to='/url' className='LinkLine'>Url</Link></li>
-              <li><Link to='/url/:shortUrl' className='LinkLine'>Url Short</Link></li>
-              <li><Link to='/host' className='LinkLine'>Host</Link></li>
-              <li><Link to='/register' className='LinkLine'>Register</Link></li>
-            </ul>
-          </div>
-        </div>
+          </div></nav> 
+       
+       <div className='blur-box'> 
       <form onSubmit={handleSubmit} className='blur'>
         <fieldset>
         <legend><h2>Sign in</h2><p className='underline'></p></legend>
@@ -131,11 +117,12 @@ const Register = () => {
         
         </fieldset>
       </form>
+     </div>
       </div>
       {success && <p style={{ color: 'green' }}>{success}</p>}
       {error && <p style={{ color: 'red' }}>{error}</p>}
       {success && <p style={{ color: 'green' }}>{success}</p>}
-      {/* </div> */}
+ 
       {/* </div> */}
     </>
   );
