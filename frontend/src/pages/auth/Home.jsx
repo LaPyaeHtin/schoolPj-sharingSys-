@@ -9,9 +9,9 @@ const Home = () => {
 return (
      <div className="home">
          <div className='navHome'>
-          <div className='nav-frontHome'>
-            {/* <h2>Light<span>Code</span></h2> */}
-        </div>
+          {/* <div className='nav-frontHome'> */}
+             <h2>Light<span>Code</span></h2> 
+        {/* </div> */}
           <div className='nav-endHome'>
             <ul>
               <li><Link to='/home' className='LinkLine'>Home</Link></li>

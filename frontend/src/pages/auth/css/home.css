@@ -17,7 +17,7 @@
 
 }
 .nav-frontHome{
-    background: gray;
+   
     width: 20%;
    
     font-weight: bold;
@@ -40,10 +40,10 @@
     align-items: center;
     width: 80%;
    
-    background: green;
+   
 }
 .nav-endHome ul{
-     
+     width: 100%;
     align-items: center;
     display: flex;
     flex-direction: row;
@@ -51,11 +51,11 @@
     list-style-type: none;
    
     }
- /* .nav-endHome ul li{
+  .nav-endHome ul li{
    
     display: block;
    
-}  */
+}  
 .LinkLine{
     text-decoration: none;
     color: white;
