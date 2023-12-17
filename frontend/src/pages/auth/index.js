@@ -8,6 +8,7 @@ import ResetPassword from './ResetPassword';
 import ChangePassword from './ChangePassword';
 import Home from './Home';
 
+
 export {
   Home,
   Register,
@@ -17,4 +18,5 @@ export {
   ForgotPassword,
   ResetPassword,
   ChangePassword,
+ 
 };

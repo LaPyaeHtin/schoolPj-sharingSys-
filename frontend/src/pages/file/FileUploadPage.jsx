@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { uploadFile, getAllFiles } from '../../services/fileService';
  import './fileUpload.css';
+ import Nav from '../../components/Nav';
 
 const FileUploadPage = () => {
   const [selectedFile, setSelectedFile] = useState(null);
@@ -76,7 +77,7 @@ const FileUploadPage = () => {
 
   return (
     <div className='f-up-box'>
-      
+      <Nav/>
       <form onSubmit={handleUpload} encType='multipart/form-data' className='f-up'>
         <fieldset><legend><h1>File Upload</h1></legend>
         <ul>

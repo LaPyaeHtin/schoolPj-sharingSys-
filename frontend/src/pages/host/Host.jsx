@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { createHost } from '../../services/hostService';
 import './host.css';
+import Nav from '../../components/Nav';
 
 const FileUploadPage = () => {
   const [formData, setFormData] = useState({
@@ -59,7 +60,7 @@ const FileUploadPage = () => {
 
   return (
     <div className='host-box'>
-
+      <Nav/>
       <form onSubmit={handleSubmit} className='host'>
       <fieldset>
         <legend><h1>File Upload Page</h1></legend>

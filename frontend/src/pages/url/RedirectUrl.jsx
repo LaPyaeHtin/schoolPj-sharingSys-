@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { getUrl } from './../../services/urlService'; // Import your apiService function
 import './redirectUrl.css';
+import Nav from '../../components/Nav';
 
 const RedirectPage = () => {
   const { shortUrl } = useParams();
@@ -51,6 +52,7 @@ const RedirectPage = () => {
 
   return (
     <div className='redirectUrl-box'>
+      <Nav/>
       {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
 
       {!redirectUrl ? (

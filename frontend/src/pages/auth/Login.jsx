@@ -4,6 +4,7 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 import { login } from '../../services/authService';
 import './css/login.css'
 import { Link } from 'react-router-dom';
+import Nav from '../../components/Nav';
 // import { useHistory } from 'react-router-dom';
 
 const Login = () => {
@@ -52,6 +53,8 @@ const Login = () => {
   return (
     <>
     <div className='l-form-box'>
+    <Nav/>
+    
       <form onSubmit={handleSubmit} className='l-form'>
         <fieldset><legend><h1>Login</h1></legend>
         <ul>
@@ -76,7 +79,10 @@ const Login = () => {
         
         </fieldset>
       </form>
+    
       </div>
+
+     
       {successMessage && <p style={{ color: 'green' }}>{successMessage}</p>}
       {error && <p style={{ color: 'red' }}>{error}</p>}
     </>

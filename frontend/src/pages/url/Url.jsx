@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { createShortenUrl, getAllUrls } from '../../services/urlService'; // Import your apiService functions
 import CopyButton from '../../components/CopyButton';
 import './url.css'
 import { Link } from 'react-router-dom';
+import Nav from '../../components/Nav';
 
 
 const ShortenUrlApp = () => {
@@ -69,7 +70,7 @@ const ShortenUrlApp = () => {
   return (
     <div className='container1'>
       
-      <div className='nav'>
+      {/* <div className='nav'>
       <div className='nav-front'>
             <h2>Light<span>Code</span></h2>
         </div>
@@ -83,7 +84,8 @@ const ShortenUrlApp = () => {
               <li><Link to='/register' className='LinkLine'>Register</Link></li>
             </ul>
           </div>
-        </div>
+        </div> */}
+        <Nav/>
         <div className='main'> 
         <div className='left'>
       

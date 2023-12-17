@@ -1,6 +1,5 @@
-
-import { Link } from 'react-router-dom';
 import './css/home.css';
+import Nav from '../../components/Nav';
 
 const Home = () => {
 
@@ -8,22 +7,9 @@ const Home = () => {
   
 return (
      <div className="home">
-         <nav className="navHome">
-       <div className="nav-frontHome"> 
-             <h2>Light<span>Code</span></h2> 
-      </div> 
-          <div className="nav-endHome">
-            <ul>
-              <li><Link to='/home' className='LinkLine'>Home</Link></li>
-              <li><Link to='/files' className='LinkLine'>File Upload</Link></li>
-              <li><Link to='/url' className='LinkLine'>Url</Link></li>
-              <li><Link to='/url/:shortUrl' className='LinkLine'>Url Short</Link></li>
-              <li><Link to='/host' className='LinkLine'>Host</Link></li>
-              <li><Link to='/register' className='LinkLine'>Register</Link></li>
-            </ul>
-          </div>
-         </nav>
-          {/* <div className="mainHome">
+         
+    <Nav/> 
+           <div className="mainHome">
             <div className="m-left">
               <div className='m-left-up'>
                 <div className="profile">
@@ -51,7 +37,7 @@ return (
              <div className="item-1"></div>
              <div className="item-2"></div>
              <div className="item-3"></div>
-         </div>  */}
+         </div> 
      </div>
     
 )
