@@ -7,7 +7,7 @@ const Nav = () => {
       <div className='nav-front'>
         <div className="content">
             <h2>Light<span>Code</span></h2>
-            <h2>Light<span>Code</span></h2>
+            {/* <h2>Light<span>Code</span></h2> */}
             </div>
         </div>
           <div className='nav-end'>

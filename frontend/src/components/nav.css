@@ -1,10 +1,10 @@
-.nav{
+/* .nav{
     height: 10%;
     display: flex;
     
 }
 .nav-front{
-    
+    background: #000;
     width: 20%;
     font-weight: bold;
     font-size: 30px;
@@ -30,7 +30,7 @@
 }
 .nav-front h2 span{
     
-
+    color: white;
 } 
 .nav-end{
     display: flex;
@@ -38,7 +38,7 @@
     align-items: center;
     width: 80%;
    
-    background: green;
+    background: transparent;
 }
 .nav-end ul{
     
@@ -65,4 +65,4 @@
 .LinkLine:hover{
     color: blue;
    
-}
+} */

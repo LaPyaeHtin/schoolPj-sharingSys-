@@ -9,62 +9,6 @@
     display: flex;
     flex-direction: column;
 }
-.navHome{
-    height: 10%;
-    display: flex;
-    
-}
-.nav-frontHome{
-    background: gray;
-    width: 20%;
-    font-weight: bold;
-    
-    display: flex;
-    justify-content: center;
-   
-    
-   
-}
-.nav-frontHome h2{
-    font-size: 30px;
-    text-align: center;
-}
-.nav-frontHome h2 span{
-    color: blue;
-}
-.nav-endHome{
-    
-    
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 80%;
-    background: green;
-   
-}
-.nav-endHome ul{
-    height: 100%;
-    width: 100%;
-    align-items: center;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-    list-style-type: none;
-    
-    }
-  .nav-endHome ul li{
-   margin-top: 10px;
-    display: block;
-   
-}  
-.LinkLine{
-    text-decoration: none;
-    color: white;
-    font-size: large;
-}
-.LinkLine:hover{
-    color: blue; 
-}
 .mainHome{
     display: flex;
     flex-direction: row;
