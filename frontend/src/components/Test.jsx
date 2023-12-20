@@ -1,28 +1,18 @@
-import { motion } from "framer-motion"
+import { motion } from "framer-motion";
 
-const icon = {
-    hidden: {
-      pathLength: 0,
-      fill: "rgba(255, 255, 255, 0)"
-    },
-    visible: {
-      pathLength: 1,
-      fill: "rgba(255, 255, 255, 1)"
-    }
-  }
- const Test =()=>{
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 100 100"
-    >
-      <motion.path
-        d="M0 100V0l50 50 50-50v100L75 75l-25 25-25-25z"
-        variants={icon}
-        initial="hidden"
-        animate="visible"
-      />
-    </svg>
-  )}
+const Test = () => (
+  <motion.div
+    initial={{ opacity: 0, scale: 0.5 }}
+    animate={{
+      opacity: 1,
+      scale: 1,
+      borderRadius: "0%", // Set the border radius to 0% for square corners
+      border: "200px solid pink",
+    }}
+    transition={{ duration: 0.5 }}
+  >
+    
+  </motion.div>
+);
 
-  export default Test;
+export default Test;
