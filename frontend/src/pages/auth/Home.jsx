@@ -1,5 +1,5 @@
 import './css/home.css';
-import Nav from '../../components/Nav';
+import Nav from '../../components/nav';
 
 const Home = () => {
 
@@ -8,7 +8,7 @@ const Home = () => {
 return (
      <div className="home">
          
-    <Nav/> 
+     <Nav/> 
            <div className="mainHome">
             <div className="m-left">
               <div className='m-left-up'>

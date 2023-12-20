@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { getUrl } from './../../services/urlService'; // Import your apiService function
 import './redirectUrl.css';
-import Nav from '../../components/Nav';
+import Nav from '../../components/nav';
 
 const RedirectPage = () => {
   const { shortUrl } = useParams();

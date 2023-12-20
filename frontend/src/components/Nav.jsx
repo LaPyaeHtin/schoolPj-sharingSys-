@@ -1,26 +1,45 @@
-import { Link } from "react-router-dom";
-import './nav.css'
+//import { Dropdown } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
-const Nav = () => {
-    return (
-        <div className='nav'>
-      <div className='nav-front'>
-        <div className="content">
-            <h2>Light<span>Code</span></h2>
-            {/* <h2>Light<span>Code</span></h2> */}
-            </div>
-        </div>
-          <div className='nav-end'>
-            <ul>
-              <li><Link to='/home' className='LinkLine'>Home</Link></li>
-              <li><Link to='/files' className='LinkLine'>File Upload</Link></li>
-              <li><Link to='/url' className='LinkLine'>Url</Link></li>
-              <li><Link to='/url/:shortUrl' className='LinkLine'>Url Short</Link></li>
-              <li><Link to='/host' className='LinkLine'>Host</Link></li>
-              <li><Link to='/register' className='LinkLine'>Register</Link></li>
-            </ul>
+import {useState} from 'react';
+import './nav.css';
+function Nav(){
+  const [visible,setVisible]=useState(false);
+  const [dropdownVisible, setDropdownVisible] = useState(false);
+
+  const toggleDropdown = () => {
+    setDropdownVisible(!dropdownVisible);
+  };
+  const toggleMenu = () => {
+    setVisible(!visible);
+  };
+return(
+  <nav>
+  <Link to="/" className="title">Website</Link>
+  <div className="menu">
+  <i className={visible ? 'bi bi-x bar' : 'bi bi-list bar'} onClick={toggleMenu}></i>
+  </div>
+  
+    <ul className={visible ? 'up' : 'drop'}>
+    <li><Link to="/home" onClick={toggleMenu}>home</Link></li>
+      <li><Link to="/dashboard" onClick={toggleMenu}>dashboard</Link></li>
+      <li><Link to="/examples" onClick={toggleMenu}>examples</Link></li>
+      <li><Link to="/about us" onClick={toggleMenu}>about us</Link></li>
+      <li><Link to="/store" onClick={toggleMenu}>store</Link></li>
+    </ul>
+   <div className="dropdown" onClick={toggleDropdown}>
+        <i className="bi bi-person lgsu"></i>
+        {dropdownVisible && (
+          <div className="dropdown-content">
+            <Link to="/Login" className="sl">Login</Link>
+            <div className="under"/>
+            <Link to="/Signup" className="sl">Signup</Link>
+
           </div>
-        </div>
-    )
+        )}
+      </div> 
+
+  </nav>
+);
 }
 export default Nav;

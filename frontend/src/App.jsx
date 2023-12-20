@@ -13,10 +13,14 @@ import {
 import { FileUploadPage } from './pages/file/index';
 import { Url, RedirectPage } from './pages/url/index';
 import { Host } from './pages/host/index';
+import Test from './components/Test';
+// import Nav from './nav'
 
 
 function App() {
   return (
+    <div>
+      {/* <Nav/> */}
     <Router>
       <Routes>
       <Route path='/home' element={<Home />} />
@@ -33,8 +37,10 @@ function App() {
         <Route path='/url' element={<Url />} />
         <Route path='/url/:shortUrl' element={<RedirectPage />} />
         <Route path='/host' element={<Host />} />
+        <Route path='/test' element={<Test/>} />
       </Routes>
     </Router>
+    </div>
   );
 }
 

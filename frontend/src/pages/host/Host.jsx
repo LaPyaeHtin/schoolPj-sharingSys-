@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { createHost } from '../../services/hostService';
 import './host.css';
-import Nav from '../../components/Nav';
+import Nav from '../../components/nav';
 
 const FileUploadPage = () => {
   const [formData, setFormData] = useState({

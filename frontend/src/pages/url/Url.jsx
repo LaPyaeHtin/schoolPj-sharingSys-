@@ -2,8 +2,8 @@ import { useState, useEffect } from 'react';
 import { createShortenUrl, getAllUrls } from '../../services/urlService'; // Import your apiService functions
 import CopyButton from '../../components/CopyButton';
 import './url.css'
-import { Link } from 'react-router-dom';
-import Nav from '../../components/Nav';
+// import { Link } from 'react-router-dom';
+import Nav from '../../components/nav';
 
 
 const ShortenUrlApp = () => {

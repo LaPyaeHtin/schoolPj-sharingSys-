@@ -4,7 +4,8 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 import { login } from '../../services/authService';
 import './css/login.css'
 import { Link } from 'react-router-dom';
-import Nav from '../../components/Nav';
+// import Nav from '../../components/Nav';
+// import Nav from '../../components/nav'
 // import { useHistory } from 'react-router-dom';
 
 const Login = () => {
@@ -53,7 +54,8 @@ const Login = () => {
   return (
     <>
     <div className='l-form-box'>
-    <Nav/>
+     {/* <Nav/> */}
+    
     
       <form onSubmit={handleSubmit} className='l-form'>
         <fieldset><legend><h1>Login</h1></legend>
@@ -75,7 +77,7 @@ const Login = () => {
         <li><div><button type='submit' className='sub-btn'>Login</button></div></li>
         </ul>
         {/* <div className='sub-btn'><button type='submit'>Login</button></div> */}
-        <p>Don't have an account?<Link to="/register" type='submit'>Register</Link></p>
+        <p>Do not have an account?<Link to="/register" type='submit'>Register</Link></p>
         
         </fieldset>
       </form>

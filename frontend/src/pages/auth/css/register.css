@@ -20,9 +20,11 @@
     background: linear-gradient(45deg,white);  
 }
 .blur {
+    height: 80%;
    display: flex;
    justify-content: center;
    align-items: center;
+   border: 2px solid red;
     /*  */
 }  
 
@@ -36,6 +38,7 @@
     border-radius: 20px;
     border: 1px solid rgba(255,255,255,0.18);
     box-shadow: 0 8px 32px 0 rgba(0,0,0,0.37);
+    margin-top: 30px;
 }
 legend{
     display: flex;

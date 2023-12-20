@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap CSS
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import { register } from '../../services/authService';
 import './css/register.css'
-import Nav from '../../components/Nav';
+import Nav from '../../components/nav';
 import { Link } from 'react-router-dom';
 
 const Register = () => {
@@ -104,15 +104,16 @@ const Register = () => {
         <div className='blur-btn'><button type='submit' className='btn'>Register</button></div>
         <p>Already have an account?<Link to="/login" type='submit'>Click here Login</Link></p>
         
-        
+       
         </fieldset>
       </form>
+      
      </div>
     
       {success && <p style={{ color: 'green' }}>{success}</p>}
       {error && <p style={{ color: 'red' }}>{error}</p>}
       {success && <p style={{ color: 'green' }}>{success}</p>}
- 
+      
       </div> 
     </>
   );
