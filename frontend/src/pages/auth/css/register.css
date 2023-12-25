@@ -20,12 +20,12 @@
     background: linear-gradient(45deg,white);  
 }
 .blur {
-    height: 80%;
+
+    height: 90%;
    display: flex;
    justify-content: center;
    align-items: center;
-   border: 2px solid red;
-    /*  */
+ 
 }  
 
 .rg-box{
@@ -38,7 +38,7 @@
     border-radius: 20px;
     border: 1px solid rgba(255,255,255,0.18);
     box-shadow: 0 8px 32px 0 rgba(0,0,0,0.37);
-    margin-top: 30px;
+   
 }
 legend{
     display: flex;
@@ -90,21 +90,26 @@ legend h2{
    
 }
 .blur li i{
-    margin: 15px;
+    /* margin: 15px; */
     font-weight: bolder;
 
 }
 
-.blur input{
+/* .blur input{
     float: right;
-}
- .blur-btn{
+} */
+ /* .blur-btn{
     display: flex;
     align-items: center;
     justify-content: center;
-    
-    background: green;
-} 
+    width: 280px;
+   
+}  */
+button{
+    width: 280px;
+    height: 45px;
+    border: none;
+}
 
 @media (max-width:500px) {
     .blur{

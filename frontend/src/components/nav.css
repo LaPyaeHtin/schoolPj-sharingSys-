@@ -10,38 +10,55 @@
     background-color: #1d7fff;
   }
   nav{
+   
     width: 100%;
     display: flex;
-    justify-content: space-between;
+   
     align-items: center;
     background-color: transparent;
-    height: 80px;
+    height: 10%;
     z-index: 4;
     position: sticky;
     top:0px;
   }
   nav .title{
     font-size: 1.5rem;
+    color: white;
+    width: 20%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     font-weight: bold;
-    margin: 1rem;
-    color: black;
+    /* margin: 1rem; */
+    
     text-decoration: none;
   }
   nav ul{
+    width: 75%;
+    height: 100%;
     display: flex;
-    position: relative;
-    right: -100px;
-  }
-  nav ul li{
     list-style: none;
-  }
+    justify-content: space-around;
+    align-items: center;
+    margin-top: auto;
+   
+    }
+    /* position: relative;
+    right: -100px; 
+  } */
+  /* nav ul li{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  } */
   nav ul li a{
    display: block;
    text-decoration: none;
    border-radius: 0.5rem;
-   margin-left: auto;
+   /* margin-left: auto;
    margin-top: auto;
-   padding: 0.5rem;
+    */
+    padding: 0.5rem;
    color: white;
    text-transform: uppercase;
   }
@@ -89,9 +106,21 @@
     background-color: gold;
   }
   .lgsu{
+  
     color: white;
+   
+   
     font-size: 35px;
+    /* display: flex;
+    justify-content: center;
+    align-items: center; */
   }
+  /* .lgsu:hover{
+    
+   
+    background: blue;
+    border-radius: 50%;
+  } */
   .under{
     height:1px;
     background-color:darkgrey;

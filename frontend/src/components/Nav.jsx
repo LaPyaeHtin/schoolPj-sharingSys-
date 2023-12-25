@@ -28,7 +28,7 @@ return(
       <li><Link to="/store" onClick={toggleMenu}>store</Link></li>
     </ul>
    <div className="dropdown" onClick={toggleDropdown}>
-        <i className="bi bi-person lgsu"></i>
+        <i className="bi bi-person lgsu"/>
         {dropdownVisible && (
           <div className="dropdown-content">
             <Link to="/Login" className="sl">Login</Link>

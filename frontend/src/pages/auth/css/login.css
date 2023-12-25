@@ -3,11 +3,11 @@
     padding: 0;
     box-sizing: border-box;
 }
-.l-form-box{
+.l-form-box{ 
     height: 100vh;
     display: flex;
     flex-direction: column;
-    background: purple;
+    background: url('rgBg2.jpg');
 }
 
 .l-form {
@@ -55,12 +55,12 @@
     outline: none;
     background-color: transparent;
 } 
-.l-form ul li .sub-btn{
+ .l-form ul li .sub-btn{
     border: none;
     outline: none;
-    background: black;
-    width: 250;
-}
+    width: 250px;
+    border-radius: 30px;
+} 
 
 /* .l-form input{
     float: right;

@@ -99,9 +99,8 @@ const Register = () => {
           ref={confirmPasswordRef}
           placeholder='Confirm password'
         /></li>
-      
+      <li>        <div className='blur-btn'><button type='submit' className='btn'>Register</button></div></li>
         </ul>
-        <div className='blur-btn'><button type='submit' className='btn'>Register</button></div>
         <p>Already have an account?<Link to="/login" type='submit'>Click here Login</Link></p>
         
        

@@ -8,6 +8,8 @@
     height: 100vh; 
     display: flex;
     flex-direction: column;
+    background: url('rgBg2.jpg');
+
 }
 .mainHome{
     display: flex;
@@ -15,39 +17,15 @@
     height: 70%;
    
     
-}
+} 
 .m-left{
     width: 20%;
-    /* border: 1px solid black; */
-   background: red;
-    display: flex;
-    flex-direction: column;
-}
-.m-left-up{
-    
-    height: 40%;
-    /* border: 2px solid black; */
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-
-}
-
-.m-left-down{
-    height: auto;
-  
    
     display: flex;
     flex-direction: column;
 }
-.m-left-down button{
-  
-    margin: 10px 0;
-    background: green;
-    border: none;
-    outline: none;
-}
+
+
 .m-right {
     display: flex;
     flex-direction: column;
