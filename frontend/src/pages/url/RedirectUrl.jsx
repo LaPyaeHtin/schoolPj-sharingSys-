@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { getUrl } from './../../services/urlService'; // Import your apiService function
 import './redirectUrl.css';
-import Nav from '../../components/Nav';
+// import Nav from '../../components/Nav';
 
 const RedirectPage = () => {
   const { shortUrl } = useParams();
@@ -52,23 +52,25 @@ const RedirectPage = () => {
 
   return (
     <div className='redirectUrl-box'>
-      <Nav/>
+      {/* <Nav /> */}
       {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
 
       {!redirectUrl ? (
         <form onSubmit={handlePasswordSubmit} className='redirectUrl'>
           <ul>
-          <li><label>
-            Password:
-            <input
-              type='password'
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </label></li>
-          <li>
-          <button type='submit'>Submit Password</button>
-          </li>
+            <li>
+              <label>
+                Password:
+                <input
+                  type='password'
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+              </label>
+            </li>
+            <li>
+              <button type='submit'>Submit Password</button>
+            </li>
           </ul>
         </form>
       ) : (

@@ -50,7 +50,7 @@ const FileUploadPage = () => {
     } catch (error) {
       setErrorMessage(
         error?.response?.data?.message ||
-          'Error uploading file(s). Please try again.'
+          'Error uploading file(s). Please try again.',
       );
       setSuccessMessage('');
       console.error('Error uploading file:', error);
@@ -60,27 +60,35 @@ const FileUploadPage = () => {
 
   return (
     <div className='host-box'>
-      <Nav/>
+      <Nav />
       <form onSubmit={handleSubmit} className='host'>
-      <fieldset>
-        <legend><h1>File Upload Page</h1></legend>
-        <ul>
+        <fieldset>
+          <legend>
+            <h1>File Upload Page</h1>
+          </legend>
+          <ul>
+            {/* ... (previous form inputs) ... */}
 
-        {/* ... (previous form inputs) ... */}
+            <li>
+              <label>
+                Choose File(s):
+                <input type='file' multiple onChange={handleFileChange} />
+              </label>
+            </li>
 
-        <li><label>
-          Choose File(s):
-          <input type='file' multiple onChange={handleFileChange} />
-        </label></li>
-      
+            <li>
+              <button type='submit'>Upload File(s)</button>
+            </li>
 
-        <li><button type='submit'>Upload File(s)</button></li>
-
-        <li>{successMessage && (
-          <div style={{ color: 'green' }}>{successMessage}</div>
-        )}
-        {errorMessage && <div style={{ color: 'red' }}>{errorMessage}</div>}</li>
-        </ul>
+            <li>
+              {successMessage && (
+                <div style={{ color: 'green' }}>{successMessage}</div>
+              )}
+              {errorMessage && (
+                <div style={{ color: 'red' }}>{errorMessage}</div>
+              )}
+            </li>
+          </ul>
         </fieldset>
       </form>
     </div>

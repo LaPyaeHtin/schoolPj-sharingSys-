@@ -11,6 +11,26 @@ const uploadFile = async (formData) => {
   }
 };
 
+const getFile = async (shortId) => {
+  try {
+    const response = await apiService.get(`${fileBaseUrl}/${shortId}`);
+    return response.data;
+  } catch (error) {
+    return error;
+  }
+};
+
+const getOriginalFilename = async (shortId) => {
+  try {
+    const response = await apiService.get(
+      `${fileBaseUrl}/${shortId}/original-filename`,
+    );
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
 const getAllFiles = async () => {
   try {
     const response = await apiService.get(`${fileBaseUrl}`);
@@ -38,4 +58,11 @@ const deleteFile = async (shortId) => {
   }
 };
 
-export { uploadFile, getAllFiles, updateFile, deleteFile };
+export {
+  uploadFile,
+  getFile,
+  getOriginalFilename,
+  getAllFiles,
+  updateFile,
+  deleteFile,
+};

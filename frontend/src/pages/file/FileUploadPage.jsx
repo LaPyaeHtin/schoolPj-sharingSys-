@@ -1,7 +1,5 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { uploadFile, getAllFiles } from '../../services/fileService';
- import './fileUpload.css';
- import Nav from '../../components/Nav';
 
 const FileUploadPage = () => {
   const [selectedFile, setSelectedFile] = useState(null);
@@ -50,73 +48,74 @@ const FileUploadPage = () => {
     formData.append('customFileName', customFileName);
 
     try {
-      await uploadFile(formData);
+      console.log('here1');
+      const response = await uploadFile(formData);
+      console.log('response.data');
       setUploadMessage('File uploaded successfully.');
-      const updatedFiles = await getAllFiles();
-      setFiles(updatedFiles.data);
+      setFiles([...files, response?.data]);
+      console.log(files);
+      console.log('first');
     } catch (error) {
-      console.error('Error uploading file:', error?.response?.data?.message);
+      console.error('Error uploading file:', error);
       setError(error?.response?.data?.message || 'Error uploading file.');
     }
   };
 
-  useEffect(() => {
-    const fetchFiles = async () => {
-      try {
-        const response = await getAllFiles();
-        setFiles(response.data);
-        console.log(response);
-      } catch (error) {
-        console.error('Error fetching files:', error?.response?.data?.message);
-        setError(error?.response?.data?.message || 'Error fetching files.');
-      }
-    };
+  // useEffect(() => {
+  //   const fetchFiles = async () => {
+  //     try {
+  //       const response = await getAllFiles();
+  //       setFiles(...response.data);
+  //     } catch (error) {
+  //       console.error('Error fetching files:', error?.response?.data?.message);
+  //       setError(error?.response?.data?.message || 'Error fetching files.');
+  //     }
+  //   };
 
-    fetchFiles();
-  }, []);
+  //   fetchFiles();
+  // }, []);
 
   return (
-    <div className='f-up-box'>
-      <Nav/>
-      <form onSubmit={handleUpload} encType='multipart/form-data' className='f-up'>
-        <fieldset><legend><h1>File Upload</h1></legend>
-        <ul>
-        <li><input type='file' onChange={handleFileChange} /></li>
-        <li><input
+    <div>
+      <h1>File Upload</h1>
+      <form onSubmit={handleUpload} encType='multipart/form-data'>
+        <input type='file' onChange={handleFileChange} />
+        <input
           type='text'
           placeholder='Custom Link'
           value={customLink}
           onChange={handleCustomLinkChange}
-        /></li>
-        <li><input
+        />
+        <input
           type='text'
           placeholder='Password'
           value={password}
           onChange={handlePasswordChange}
-        /></li>
-        <li><input
+        />
+        <input
           type='text'
           placeholder='Limit'
           value={limit}
           onChange={handleLimitChange}
-        /></li>
-        <li><input
+        />
+        <input
           type='text'
           placeholder='Custom File Name'
           value={customFileName}
           onChange={handleCustomFileNameChange}
-        /></li>
-        <li><button type='submit'>Upload File</button></li>
-        <li>{error && <p style={{ color: 'red' }}>{error}</p>}
-        {uploadMessage && <p style={{ color: 'green' }}>{uploadMessage}</p>}</li>
-        </ul> </fieldset>
+        />
+        <button type='submit'>Upload File</button>
+        {error && <p style={{ color: 'red' }}>{error}</p>}
+        {uploadMessage && <p style={{ color: 'green' }}>{uploadMessage}</p>}
       </form>
       <h2>Uploaded Files</h2>
-      
-        {files?.map((file) => (
+
+      {files?.map((file) => (
+        <ul key={file._id}>
           <li key={file._id}>{file.originalFilename}</li>
-        ))}
-    
+          <li>{file.shortId}</li>
+        </ul>
+      ))}
     </div>
   );
 };

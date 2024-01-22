@@ -4,6 +4,8 @@ const { verifyJWT } = require('../middlewares/verifyJWT');
 const { protect } = require('../middlewares/protectRoute');
 const {
   uploadFile,
+  getFile,
+  getOriginalFilename,
   getAllFiles,
   updateFile,
   deleteFile,
@@ -17,8 +19,10 @@ const {
 
 router.use(verifyJWT);
 router.route('/upload').post(singleUpload('file'), uploadFile);
-router.use(protect);
+// router.use(protect);
 router.route('/').get(getAllFiles);
-router.route('/:shortId').patch(updateFile).delete(deleteFile);
+router.route('/:shortId').patch(updateFile).delete(deleteFile).get(getFile);
+
+router.route('/orignalName/:shortId').get(getOriginalFilename);
 
 module.exports = router;

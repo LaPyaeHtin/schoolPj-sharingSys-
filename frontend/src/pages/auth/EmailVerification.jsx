@@ -19,13 +19,13 @@ const EmailVerificationPage = () => {
   };
   useEffect(() => {
     verify();
-  }, [token]);
+  }, []);
 
   return (
     <div className='e-verifi'>
       <div className='e-verifi-box'>
-      <h1>Email Verification</h1>
-      <div>{verificationStatus}</div>
+        <h1>Email Verification</h1>
+        <div>{verificationStatus}</div>
       </div>
     </div>
   );
