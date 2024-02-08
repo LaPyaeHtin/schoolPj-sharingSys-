@@ -6,10 +6,17 @@ import {
   deleteUrl,
 } from '../../services/urlService'; // Import your apiService functions
 import CopyButton from '../../components/CopyButton';
+<<<<<<< HEAD
 import './url.css';
 import { Link } from 'react-router-dom';
 // import Nav from '../../components/Nav';
 // import { Resizable } from 'react-resizable';
+=======
+import './url.css'
+// import { Link } from 'react-router-dom';
+import Nav from '../../components/nav';
+
+>>>>>>> 252d54ef396372efa7cb5dd5fbe941e917df5e5d
 
 const ShortenUrlApp = () => {
   const [url, setUrl] = useState('');

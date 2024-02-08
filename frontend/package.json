@@ -13,7 +13,11 @@
     "axios": "^1.5.1",
     "bootstrap": "^5.3.2",
     "bootstrap-icons": "^1.11.2",
+<<<<<<< HEAD
     "downloadjs": "^1.4.7",
+=======
+    "framer-motion": "^10.16.16",
+>>>>>>> 252d54ef396372efa7cb5dd5fbe941e917df5e5d
     "react": "^18.2.0",
     "react-bootstrap": "^2.9.1",
     "react-dom": "^18.2.0",

@@ -2,10 +2,15 @@ import { useRef, useState } from 'react';
 // import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap CSS
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import { register } from '../../services/authService';
+<<<<<<< HEAD
 import Nav from '../../components/nav';
 
 import './css/register.css';
 // import Nav from '../../components/Nav';
+=======
+import './css/register.css'
+import Nav from '../../components/nav';
+>>>>>>> 252d54ef396372efa7cb5dd5fbe941e917df5e5d
 import { Link } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -60,6 +65,7 @@ const Register = () => {
 
   return (
     <>
+<<<<<<< HEAD
       <div className='blur-box'>
         <Nav />
 
@@ -134,6 +140,67 @@ const Register = () => {
         {success && <p style={{ color: 'green' }}>{success}</p>}
       </div>
       <ToastContainer />
+=======
+   
+    
+       
+       <div className='blur-box'> 
+       <Nav/>
+       <div className='blur'>
+      <form onSubmit={handleSubmit} className='rg-box'>
+        <fieldset>
+        <legend><h2>Sign in</h2><p className='underline'></p></legend>
+       
+        <ul>
+        <li><i className="bi bi-person"></i>
+          {/* <label htmlFor='username'>Username</label> */}
+        <input
+          type='text'
+          id='username'
+          ref={usernameRef}
+          placeholder='Enter username'
+        />
+        </li>
+        <li><i className="bi bi-envelope"></i>
+          {/* <label htmlFor='email'>Email</label> */}
+        <input
+          type='email'
+          id='email'
+          ref={emailRef}
+          placeholder='Enter email'
+        /></li>
+        <li><i className="bi bi-lock"></i>
+          {/* <label htmlFor='password'>Password</label> */}
+        <input
+          type='password'
+          id='password'
+          ref={passwordRef}
+          placeholder='Enter password'
+        /></li>
+        <li><i className="bi bi-check"></i>
+         
+        <input
+          type='password'
+          id='confirmPassword'
+          ref={confirmPasswordRef}
+          placeholder='Confirm password'
+        /></li>
+      <li>        <div className='blur-btn'><button type='submit' className='btn'>Register</button></div></li>
+        </ul>
+        <p>Already have an account?<Link to="/login" type='submit'>Click here Login</Link></p>
+        
+       
+        </fieldset>
+      </form>
+      
+     </div>
+    
+      {success && <p style={{ color: 'green' }}>{success}</p>}
+      {error && <p style={{ color: 'red' }}>{error}</p>}
+      {success && <p style={{ color: 'green' }}>{success}</p>}
+      
+      </div> 
+>>>>>>> 252d54ef396372efa7cb5dd5fbe941e917df5e5d
     </>
   );
 };

@@ -1,5 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { uploadFile, getAllFiles } from '../../services/fileService';
+<<<<<<< HEAD
+=======
+ import './fileUpload.css';
+ import Nav from '../../components/nav';
+>>>>>>> 252d54ef396372efa7cb5dd5fbe941e917df5e5d
 
 const FileUploadPage = () => {
   const [selectedFile, setSelectedFile] = useState(null);

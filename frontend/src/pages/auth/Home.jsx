@@ -2,6 +2,7 @@ import './css/home.css';
 import Nav from '../../components/nav';
 
 const Home = () => {
+<<<<<<< HEAD
   return (
     <div className='home'>
       <Nav />
@@ -106,3 +107,29 @@ const Home = () => {
   );
 };
 export default Home;
+=======
+
+  
+  
+return (
+     <div className="home">
+         
+     <Nav/> 
+           <div className="mainHome">
+            <div className="m-left">
+             
+            </div>
+             <div className="m-right">
+             </div> 
+         </div>
+         <div className="bottom">
+             <div className="item-1"></div>
+             <div className="item-2"></div>
+             <div className="item-3"></div>
+         </div> 
+     </div>
+    
+)
+}
+export default Home;
+>>>>>>> 252d54ef396372efa7cb5dd5fbe941e917df5e5d
