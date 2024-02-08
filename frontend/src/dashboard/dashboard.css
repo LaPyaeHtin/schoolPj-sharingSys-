@@ -158,6 +158,7 @@
 }
 .bla{
   color:#272626;
+  background: #000;
 }
 @media (max-width: 900px) {
   .seccon1 {
